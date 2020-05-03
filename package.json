@@ -1,0 +1,28 @@
+{
+  "name": "todolistonnode",
+  "version": "1.0.0",
+  "description": "application on node and react",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "server": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Michail12c/toList.git"
+  },
+  "author": "Michaylo Tsoma <dagobertusdagobertus@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Michail12c/toList/issues"
+  },
+  "homepage": "https://github.com/Michail12c/toList#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongoose": "^5.9.11"
+  },
+  "devDependencies": {
+    "concurrently": "^5.2.0",
+    "nodemon": "^2.0.3"
+  }
+}
