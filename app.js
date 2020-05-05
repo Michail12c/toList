@@ -1,11 +1,18 @@
 const express = require('express')
 const app = express()
 const mongoose = require('mongoose')
-const PORT = process.env.PORT || 3000
+const authRouter = require('./routes/auth')
+
+const PORT = 5000
 const config = require('./config')
+const path = require('path')
+
+app.use(express.json())
 
 
-/* app.use(express.urlencoded({extended:true})) */
+app.use('/api/auth', authRouter)
+
+app.use(express.urlencoded({extended:true}))
 
 async function start(){
   try{
