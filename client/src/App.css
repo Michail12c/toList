@@ -4,3 +4,13 @@
 .test{
  height: 500px;
 }
+.section-auth{
+  text-align: center;
+}
+.authPage{
+  margin-top: 3rem;
+}
+.inner-authPage{
+ margin-bottom: 2rem;
+}
+

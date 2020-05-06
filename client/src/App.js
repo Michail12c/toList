@@ -7,6 +7,7 @@ import Footer from './components/footer';
 import MainPage from './components/pages/MainPage';
 import AuthPage from './components/pages/AuthPage';
 import TodoPage from './components/pages/TodoPage';
+import AddTodoPage from './components/pages/AddTodoPage';
 
 
 
@@ -19,6 +20,7 @@ function App() {
         <div className = 'test'>    
             <Switch>
               <Route exact path = '/' render = { () => <MainPage/>}/>
+              <Route path='/add' render = {() => <AddTodoPage/>}/>
               <Route path ='/auth' render = {() => <AuthPage/>}/>
               <Route path='/todo' render = {() => <TodoPage/> }/>
             </Switch>
