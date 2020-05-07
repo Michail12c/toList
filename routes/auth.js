@@ -10,12 +10,13 @@ const config = require('../config')
 
 router.post('/register',
 [
-  check('email', 'Невірний ввід данних').isEmail(),
-  check('pasword', 'Ьінімальна довжина паролю 6 символів').isLength({min: 6})
+  check('text', 'Невірний ввід данних').isLength({min: 3}),
+  check('password', 'Мінімальна довжина паролю 6 символів').isLength({min: 6})
 ],
 async (req, res) => {
    try{
      const errors = validationResult(req)
+     console.log(req.body)
      if(!errors.isEmpty()){
        return res.status(400).json({
          errors: errors.array(),
@@ -23,7 +24,7 @@ async (req, res) => {
        })
      }
      
-     const {email, password} = req.body
+     const {test, password} = req.body
      const candidate = await User.findOne(email)
 
      if(candidate){
@@ -43,8 +44,8 @@ async (req, res) => {
 
 router.post('/login', 
 [
-  check('email', 'Введіть корректний пароль чи email').normalizeEmail().isEmail(),
-  check('pasword', 'Введіть корректний пароль чи email').exists()
+  check('text', 'Введіть корректний пароль чи email').exists(),
+  check('password', 'Введіть корректний пароль чи email').exists()
 ],
 async(req, res) => {
   try{
@@ -56,7 +57,7 @@ async(req, res) => {
       })
     }
    
-    const {email, pasword} = req.body
+    const {text, password} = req.body
     const user = await User.findOne({ email })
 
     if(!user){

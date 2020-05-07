@@ -3,11 +3,11 @@ const app = express()
 const mongoose = require('mongoose')
 const authRouter = require('./routes/auth')
 
-const PORT = 5000
+const PORT = process.env.PORT || 5000
 const config = require('./config')
 const path = require('path')
 
-app.use(express.json())
+app.use(express.json({extended: true}))
 
 
 app.use('/api/auth', authRouter)
