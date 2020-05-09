@@ -21,9 +21,9 @@ function App() {
         <div className = 'test'>    
             <Switch>
               <Route exact path = '/' render = { () => <MainPage/>}/>
-              <Route path='/add' render = {() => <AddTodoPage/>}/>
+              <Route path='/add' render = {() => <AddTodoPage status = {true}/>}/>
               <Route path ='/auth' render = {() => <AuthPage/>}/>
-              <Route path='/todo' render = {() => <TodoPage/> }/>
+              <Route path='/todo' render = {() => <TodoPage status = {true}/> }/>
             </Switch>
         </div>
       </div>

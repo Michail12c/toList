@@ -1,14 +1,14 @@
 import React from 'react'
 import { useState } from 'react'
+import DemonstrationContent from './DemonstrationContent'
 
 const MainPage = () => {
   const [statusContent, setStatusContent] = useState(false)
-  
    
   return(
    <div className ="main-page">
      { !statusContent ? <MainContent setStatusContent = {setStatusContent}/> 
-                       : <DemonstrationContent setStatusContent = {setStatusContent}/> }
+                       : <DemonstrationContent setStatusContent = {setStatusContent} /> }
    </div>
   )
 }
@@ -21,7 +21,7 @@ const MainContent = ({setStatusContent}) => {
     </h1>
     <h5>test text</h5>
      <p> <img src="https://www.aisheonline.com/wp-content/uploads/2017/06/a-te-li-slova-ya-uchu.jpg" alt="image"/>
-       Lorem ipsum dolor, sit amet consectetur adipisicing elit. Laudantium quis labore quae adipisci odit rerum esse sunt. Temporibus hic deserunt placeat itaque accusantium aspernatur voluptatibus quidem, obcaecati vero, commodi aperiam?Lorem ipsum dolor sit amet consectetur, adipisicing elit. 
+       Структура додатку створена на основі концепцій Максима Дорофеєва. Розписати різницю між завданнями, проектами та ідеями.
      </p>
      <p>
      Omnis ipsa assumenda ad quae incidunt minus ab consectetur molestiae eos magnam, tempora velit necessitatibus vero repellendus. Repellendus tempora eaque iusto dignissimos.
@@ -46,13 +46,6 @@ const MainContent = ({setStatusContent}) => {
   )
 }
 
-const DemonstrationContent = ({setStatusContent}) => {
-  return(
-    <div>
-      <h1>Demonstration</h1>
-      <button onClick = {() => setStatusContent(false)} className='btn'>Повернутись</button>
-    </div>
-  )
-}
+
 
 export default MainPage

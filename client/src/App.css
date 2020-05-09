@@ -1,7 +1,6 @@
 .nav-wrapper{
   padding: 0 2rem;
 }
-
 .section-auth{
   text-align: center;
 }
@@ -11,6 +10,7 @@
 .inner-authPage{
  margin-bottom: 2rem;
 }
+
 a.activeAuth{
   color: green!important; 
 }
@@ -60,6 +60,64 @@ a.activeAuth{
   display: inline-block;
   margin-right: 20px;
 }
+
+/* todo page */
+.section-todoPage{
+ position: relative;
+}
+.section-todoPage h1{
+  margin-bottom: 4rem;
+}
+.statistic{
+ position: absolute;
+ right: 10px;
+ top: -2rem;
+}
+.todoPage{
+ 
+}
+.menuTodo{
+ /*  position: fixed; */
+  padding-right: 2rem;
+  padding-bottom: 1rem;
+  border-right: 2px solid green;
+}
+.menuList{
+  text-transform: uppercase;
+  padding-top: 1rem;
+  font-weight: bold;
+  color:rgb(71, 67, 67);
+  cursor: pointer;
+}
+.menuListActive{
+  text-transform: uppercase;
+  padding-top: 1rem;
+  font-weight: bold;
+  color:rgb(192, 161, 161);
+  cursor: pointer;
+}
+.menuList:hover{
+  color:rgb(121, 117, 117);
+}
+.contentTodo{
+  max-height: 90vh;
+  min-height: 60vh;
+  margin-left: 10rem;
+  padding-right: -20px;
+  overflow: auto;
+}
+.demonstrationPage{
+  padding-top: 2rem;
+}
+.showTodo{
+ margin-top: 5rem;
+ margin-bottom: 3rem;
+}
+.deleteYes{
+  margin-left: 1rem;
+}
+
+
 
 
 

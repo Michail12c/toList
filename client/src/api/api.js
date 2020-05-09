@@ -9,7 +9,7 @@ export const api = {
         'Content-Type': 'application/json'
         /*  'Accept':  'application/json' */
       },
-      body: JSON.stringify({body})
+      body: JSON.stringify(body)
     })
      .then(res => res.json())
      .then(response => {

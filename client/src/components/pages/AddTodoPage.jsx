@@ -1,39 +1,35 @@
 import React from 'react'
 import M from 'materialize-css'
 import { useEffect, useState } from 'react';
+import { connect } from 'react-redux';
+import { setTodo } from '../../redux/todo-reducer';
 
-const AddTodoPage = () => {
+const AddTodoPage = ({status, setTodo}) => {
 
   useEffect(() => {
     M.AutoInit();
   })
 
- const [form, setForm] = useState({date: '', todo: '', typeTodo: '', priority: ''})
+ const [form, setForm] = useState({todo: '', comment: '', typeTodo: '', priority: ''})
 
  const changeHandler = event => {
   setForm({...form, [event.target.name]: event.target.value })
- 
-}
-console.log(form)  
+} 
   const handleSubmit = (e) => {
    e.preventDefault()
-   console.log(form)
+   if(status){
+    console.log(form)
+   }else{
+     setTodo(form)
+    console.log('false:', form)  
   }
+}
 
 
   return(
     <div className = "addTodo">
-      <h1>Add todo</h1>
+     {status ? <h1>Add todo</h1> : ''}
      <form onSubmit = {handleSubmit}>
-     <div className = "row">
-       <div className="input-field col s10 offset-s1">
-         <input type="text"
-           name = "date" 
-           className="datepicker" 
-           onChange={changeHandler}/>
-         <label forhtml="datepicker">Дата завдання</label>
-        </div> 
-      </div>
        <div className="row">
         <form className="col s12">
           <div className="row">
@@ -42,7 +38,20 @@ console.log(form)
               name = "todo" 
               className="materialize-textarea"
                onChange={changeHandler}></textarea>
-              <label forhtml="textarea1">Опис завдання</label>
+              <label forhtml="textarea1">Назва</label>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div className="row">
+        <form className="col s12">
+          <div className="row">
+            <div className="input-field col s10 offset-s1">
+              <textarea id="textarea1" 
+              name = "comment" 
+              className="materialize-textarea"
+               onChange={changeHandler}></textarea>
+              <label forhtml="textarea1">Коментар</label>
             </div>
           </div>
         </form>
@@ -51,15 +60,17 @@ console.log(form)
         <div className="input-field col s10 offset-s1">
           <select className="icons" name="typeTodo" onChange={changeHandler}>
             <option value="" disabled selected>Виберіть тип завдання</option>
-            <option value="1" name = "typeTodo" data-icon="https://lh3.googleusercontent.com/proxy/QerZSl3OcZZgmqBKcZ4idWAodAtFfzEEmMfuh077_qY15QI4tSOwcZZadgTKLmr8Wje882zvQLUH4dHQDm59r41EsYFsrJ_HD7Ivj8IlfjUtp6iSfCcTWOcLejgdR-_Hf5AMaILy" className="left">Загальні</option>
-            <option value="2" name = "typeTodo" data-icon="https://master-prod.s3.eu-central-1.amazonaws.com/organization/75654organization.jpg" className="left">Робота</option>
-            <option value="3"  name = "typeTodo" data-icon="https://img.freepik.com/free-photo/_23-2147845946.jpg?size=626&ext=jpg" className="left">Навчання</option>
-            <option value="4"  name = "typeTodo"  data-icon="https://traingain.org/multimedia/files_asset/2/5/6/8/52b2d3d5b943b6223620eebdae631f3a_760_500_1.jpg" className="left">Спорт</option>
+            <option value="task" name = "typeTodo" data-icon="https://lh3.googleusercontent.com/proxy/QerZSl3OcZZgmqBKcZ4idWAodAtFfzEEmMfuh077_qY15QI4tSOwcZZadgTKLmr8Wje882zvQLUH4dHQDm59r41EsYFsrJ_HD7Ivj8IlfjUtp6iSfCcTWOcLejgdR-_Hf5AMaILy" className="left">Завдання</option>
+            <option value="project" name = "typeTodo" data-icon="https://master-prod.s3.eu-central-1.amazonaws.com/organization/75654organization.jpg" className="left">Проекти</option>
+            <option value="idea"  name = "typeTodo" data-icon="https://img.freepik.com/free-photo/_23-2147845946.jpg?size=626&ext=jpg" className="left">Ідеї</option>
           </select>
-          <label>Images in select</label>
+          <label>Тип завдання</label>
         </div>
         </div>  
-        <div className="radioBtn-section row">
+        <div className="radioBtn-section row"> 
+        <div>
+          <label className = 'col s2 offset-s1'>Пріоритет</label>
+        </div>
         <form action="#" className = "col s10 offset-s1">
             <p>
               <label>
@@ -88,5 +99,11 @@ console.log(form)
     </div>
   )
 }
+const mapStateToProps = state => {
+  return{
+    
+  }
+}
 
-export default AddTodoPage
+
+export default connect(mapStateToProps, {setTodo})(AddTodoPage)

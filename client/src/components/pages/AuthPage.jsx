@@ -74,7 +74,7 @@ const sendData = (e) => {
   
   
                 <div id="register" className="col s12 section-auth">
-                             <div className="row">
+                   <div className="row">
                     <form className="col s12">
                       <div className="row">
                         <div className="input-field col s8 offset-s2">

@@ -19,8 +19,8 @@ async function start(){
     await mongoose.connect(config.url, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
-    useCreateIndex: true
-  /*  useFindAndModify: false */
+    useCreateIndex: true,
+    useFindAndModify: false
   })
   
   app.listen(PORT, () => {
@@ -31,6 +31,8 @@ async function start(){
     process.exit(1)
   }
 }
+
+
 
 
 start()
