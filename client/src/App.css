@@ -49,6 +49,7 @@ a.activeAuth{
 }
 .addTodo h1{
   margin-bottom: 3rem;
+  text-align: center;
 }
 .addTodoBtn{
   display: flex;
@@ -67,6 +68,7 @@ a.activeAuth{
 }
 .section-todoPage h1{
   margin-bottom: 4rem;
+  text-align: center;
 }
 .statistic{
  position: absolute;
@@ -116,6 +118,9 @@ a.activeAuth{
 .deleteYes{
   margin-left: 1rem;
 }
+.heightTodoForm{
+  margin-bottom: -3rem!important;
+}
 
 
 
@@ -132,5 +137,8 @@ a.activeAuth{
  @media (max-width: 575.98px) {
   .title-main img{
     width: 200px;
+  }
+  .addTodo h1{
+    text-align: center;
   }
 }

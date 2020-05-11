@@ -14,6 +14,11 @@ const sendData = (e) => {
   e.preventDefault()
   api.sendPost('/api/auth/register', form)
 }
+
+const sendLogin = (e) => {
+  e.preventDefault()
+  api.sendPost('/api/auth/login', form)
+}
  
  useEffect(() => {
   M.AutoInit();
@@ -98,7 +103,7 @@ const sendData = (e) => {
                           <label htmlFor="password">Password</label>
                         </div>
                       </div>
-                      <button  onClick= {sendData} className="waves-effect btn send-auth">Відправити</button>
+                      <button  onClick= {sendLogin} className="waves-effect btn send-auth">Відправити</button>
                     </form>
                   </div>
                 </div>

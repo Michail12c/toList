@@ -10,9 +10,16 @@ const schema = new Schema({
     type: String,
     required: true
   },
-  links: {
-   type: Types.ObjectId,
-   ref: "Link"
+  todo: {
+    items: [
+     {
+       todoId: {
+         type: Schema.Types.ObjectId,
+         ref: 'Todo',
+         required: true
+       }
+     }
+    ]
   }
 })
 

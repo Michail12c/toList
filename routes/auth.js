@@ -6,20 +6,8 @@ const {check, validationResult} = require('express-validator')
 const bcrypt = require('bcryptjs')
 const config = require('../config')
 
-router.post('/register', async (req, res) => {
-   const user = new User({
-     text: req.body.text,
-     password: req.body.password
-   })
-   try{
-    await user.save()
-    res.status(201).json({message: 'Користувач створений'})
-   }catch(e){
-     console.log(e)
-   }
-})
 
-/* router.post('/register',
+ router.post('/register',
 [
   check('text', 'Невірний ввід данних').isLength({min: 3}),
   check('password', 'Мінімальна довжина паролю 6 символів').isLength({min: 6})
@@ -44,7 +32,6 @@ async (req, res) => {
      }
      const hashedPassword = await bcrypt.hash(password, 12)
      const user = new User({text, password: hashedPassword})
-     console.log(user)
      await user.save()
      res.status(201).json({message: 'Користувач створений'})
     
@@ -70,7 +57,7 @@ async(req, res) => {
     }
    
     const {text, password} = req.body
-    const user = await User.findOne({ email })
+    const user = await User.findOne({ text })
 
     if(!user){
      return  res.status(400).json({message: 'Користувач не знайдений'})
@@ -88,11 +75,10 @@ async(req, res) => {
       {expiresIn: '1h'}
     )
 
-    res.json({token, userId: user.id})
-  
+    res.json({token, userId: user.id})  
   }catch(e){
     res.status(500).json({message:"Error..."})
   }
-}) */
+}) 
 
 module.exports = router

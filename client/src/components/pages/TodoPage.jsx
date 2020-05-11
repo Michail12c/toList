@@ -42,7 +42,7 @@ const TodoPage = ({todo, status, deleteTodoAC}) => {
         {status ?  <h1> Todo Page</h1> : ''}
       
         <div className = 'todoPage row'>
-           <div className = 'menuTodo col s3'>
+           <div className = 'menuTodo col s4 m2'>
              <div onClick = {() => setStatus(0)} className = {statusContent == 0 ? 'menuListActive' : 'menuList'}>
                 Завдання
              </div>
@@ -53,11 +53,10 @@ const TodoPage = ({todo, status, deleteTodoAC}) => {
                 Ідеї
               </div>
            </div>
-           <div className = 'contentTodo col s9'>
+           <div className = 'contentTodo col s8'>
              {statusContent == 0 ? contentTask : ''}
              {statusContent == 1 ? contentProject : '' }
              {statusContent == 2 ? contentIdea : '' }
-             <Cards todo = {'test'} comment = {'test comment'} priority = {'1'}/>
            </div>
         </div>
      </div>
@@ -66,6 +65,10 @@ const TodoPage = ({todo, status, deleteTodoAC}) => {
 
 const Cards = ({todo, comment, priority, deleteTodo}) => {
   const [statusDelete, setDelete] = useState(false)
+  const [colorCard, setColorCard] = useState(false)
+  if(colorCard){
+    priority = '4' 
+  }
   let styleCard; 
   switch(priority){
     case '1':
@@ -77,13 +80,28 @@ const Cards = ({todo, comment, priority, deleteTodo}) => {
     case '3':
       styleCard = "card #90a4ae blue-grey lighten-2"
      break 
+    case '4': 
+      styleCard = "card #4caf50 green"
+    break
   }
   
-  const deleteCard = () => {
+ const changeColor = (e) => {
+   e.preventDefault()
+  setColorCard(!colorCard)
+ }
+
+ const answerDelete = (e) => {
+   e.preventDefault()
+   setDelete(!statusDelete)
+ }
+
+  const deleteCard = (e) => {
+    e.preventDefault()
     deleteTodo(todo)
     setDelete(false) 
   }
 
+ console.log('render')
    return(
      <div className = 'cards'>
         <div className="row">
@@ -94,12 +112,14 @@ const Cards = ({todo, comment, priority, deleteTodo}) => {
                 <p>{comment}</p>
               </div>
               <div className="card-action">
-                <a href="#">Зроблено</a>
+                <a href="#" onClick = {changeColor}>
+                   {!colorCard ? 'Зроблено' : 'Відмінити'}
+                </a>
                 {!statusDelete 
-                      ? <a href="#" onClick = {() => setDelete(true)}>Видалити</a> 
+                      ? <a href="#" onClick = {answerDelete}>Видалити</a> 
                       : <span>Ви впевненні, що хочете видалити картку?
-                            <a href="#" onClick = {deleteCard}><span className = "deleteYes">так</span></a> 
-                            <a href="#" onClick = {() => setDelete(false) }>ні</a>
+                            <a href="#" onClick = {(e) => deleteCard(e)}><span className = "deleteYes">так</span></a> 
+                            <a href="#" onClick = {answerDelete}>ні</a>
                         </span> 
                 }
               </div>

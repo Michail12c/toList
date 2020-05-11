@@ -31,7 +31,7 @@ const AddTodoPage = ({status, setTodo}) => {
      {status ? <h1>Add todo</h1> : ''}
      <form onSubmit = {handleSubmit}>
        <div className="row">
-        <form className="col s12">
+        <form className="col s12 heightTodoForm">
           <div className="row">
             <div className="input-field col s10 offset-s1">
               <textarea id="textarea1" 
@@ -44,7 +44,7 @@ const AddTodoPage = ({status, setTodo}) => {
         </form>
       </div>
       <div className="row">
-        <form className="col s12">
+        <form className="col s12 heightTodoForm">
           <div className="row">
             <div className="input-field col s10 offset-s1">
               <textarea id="textarea1" 
