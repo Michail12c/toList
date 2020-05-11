@@ -1,8 +1,15 @@
-import React, { useState } from 'react'; 
+import React from 'react'; 
 import { NavLink } from 'react-router-dom';
+import { connect } from 'react-redux';
 
-const Header = () => {
-  const {statusAuth, setStatusAuth} = useState(false)
+const Header = ({isAuth, setInit}) => {
+  const logout = () => {
+    localStorage.removeItem('auth')
+    setInit(false)
+  }
+
+
+  
   return(
     <div className = 'header'> 
       <nav>
@@ -10,14 +17,20 @@ const Header = () => {
           <a href="#" className="brand-logo">Logo</a>
           <ul id="nav-mobile" className="right hide-on-med-and-down">
             <li><NavLink  to='/'>Головна</NavLink></li>
-            {!statusAuth ? <li><NavLink to='/add'>Додати</NavLink></li> : ''}
-            {!statusAuth ? <li><NavLink to='/todo'>Завдання</NavLink></li> : ''}
-            <li><NavLink to ='/auth'>{!statusAuth ? "Ввійти" : "Вийти"}</NavLink></li>
+            {isAuth ? <li><NavLink to='/add'>Додати</NavLink></li> : ''}
+            {isAuth ? <li><NavLink to='/todo'>Завдання</NavLink></li> : ''}
+            <li><NavLink to ='/auth'>{!isAuth ? "Ввійти" : <span onClick ={logout}>Вийти</span>}</NavLink></li>
           </ul>
         </div>
       </nav>
     </div>
   )
 }
+const mapStateToProps = state => {
+  return {
+    isAuth: state.authPage.isAuth
+  }
+}
 
-export default Header
+
+export default connect(mapStateToProps)(Header)

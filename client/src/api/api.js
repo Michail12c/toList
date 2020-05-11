@@ -3,7 +3,7 @@ export const api = {
     
   },
   sendPost(url, body){
-    fetch(url, {
+   let data = fetch(url, {
       method: 'post',
       headers: {
         'Content-Type': 'application/json'
@@ -12,9 +12,8 @@ export const api = {
       body: JSON.stringify(body)
     })
      .then(res => res.json())
-     .then(response => {
-       console.log(response)
-     })
+     .then(response => response)
+     return data
   }
 
 

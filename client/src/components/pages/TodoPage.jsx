@@ -6,6 +6,8 @@ import { deleteTodoAC } from '../../redux/todo-reducer';
 
 
 const TodoPage = ({todo, status, deleteTodoAC}) => {
+
+
   let taskArr = [],
       projectArr = [],
       ideaArr = []; 
@@ -101,7 +103,8 @@ const Cards = ({todo, comment, priority, deleteTodo}) => {
     setDelete(false) 
   }
 
- console.log('render')
+
+
    return(
      <div className = 'cards'>
         <div className="row">

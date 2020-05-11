@@ -1,8 +1,12 @@
 import React, { useEffect, useState } from 'react'
-import M from 'materialize-css'
+import { connect } from 'react-redux';
+import {Redirect} from 'react-router-dom'
 import { api } from '../../api/api'
+import {setAuth} from '../../redux/auth-reducer'
+import M from 'materialize-css'
 
-const AuthPage = () => {
+
+const AuthPage = ({setAuth, isAuth}) => {
 
 const [form, setForm] = useState({text: '', password: ''})
 
@@ -15,15 +19,26 @@ const sendData = (e) => {
   api.sendPost('/api/auth/register', form)
 }
 
-const sendLogin = (e) => {
-  e.preventDefault()
-  api.sendPost('/api/auth/login', form)
+const sendLogin = async (e) => {
+     e.preventDefault()
+  try {
+    const data = await api.sendPost('/api/auth/login', form)
+    let isAuth = !!data.token
+    localStorage.setItem('auth', JSON.stringify({userId: data.userId, token: data.token, isAuth: isAuth}))
+    setAuth( data.userId, data.token, isAuth)
+  } catch (e) {
+    console.log(e)
+  }
+
 }
  
  useEffect(() => {
   M.AutoInit();
  })
 
+ if(isAuth){
+  return <Redirect to='/todo'/>
+}
   
     return(
       <div className = 'authPage'>
@@ -111,5 +126,9 @@ const sendLogin = (e) => {
       </div>
     )
 }
-
-export default AuthPage
+const mapStateToProps = state => {
+  return{
+  isAuth: state.authPage.isAuth
+  }
+}
+export default connect(mapStateToProps, {setAuth})(AuthPage)

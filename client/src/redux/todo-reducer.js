@@ -18,7 +18,7 @@ const todoReducer = (state = initialState, action) => {
       return{
         ...state,
         todo: state.todo.filter(item => item.todo !== action.todo)
-      }  
+      }   
     default:
       return state
   }
