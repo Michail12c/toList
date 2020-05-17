@@ -1,16 +1,21 @@
 const express = require('express')
 const app = express()
 const mongoose = require('mongoose')
+const session = require('express-session')
+const User = require('./models/User')
 const authRouter = require('./routes/auth')
+const todoRouter = require('./routes/addTodo')
 
 const PORT = process.env.PORT || 5000
 const config = require('./config')
 const path = require('path')
 
+
+
 app.use(express.json({extended: true}))
 
-
 app.use('/api/auth', authRouter)
+app.use('/api/todo', todoRouter)
 
 app.use(express.urlencoded({extended:true}))
 

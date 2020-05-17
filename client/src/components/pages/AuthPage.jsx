@@ -29,7 +29,6 @@ const sendLogin = async (e) => {
   } catch (e) {
     console.log(e)
   }
-
 }
  
  useEffect(() => {
@@ -37,7 +36,7 @@ const sendLogin = async (e) => {
  })
 
  if(isAuth){
-  return <Redirect to='/todo'/>
+  return <Redirect to='/'/>
 }
   
     return(

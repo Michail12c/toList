@@ -1,6 +1,9 @@
 export const api = {
-  sendGet(url){
-    
+  getTodo(url){
+    let data = fetch(url)
+               .then(res => res.json())
+               .then(response => response)
+    return data                     
   },
   sendPost(url, body){
    let data = fetch(url, {
@@ -14,7 +17,20 @@ export const api = {
      .then(res => res.json())
      .then(response => response)
      return data
-  }
+  },
+  updateTodo(url, body){
+    let data = fetch(url, {
+       method: 'put',
+       headers: {
+         'Content-Type': 'application/json'
+         /*  'Accept':  'application/json' */
+       },
+       body: JSON.stringify(body)
+     })
+      .then(res => res.json())
+      .then(response => response)
+      return data
+   }
 
 
 

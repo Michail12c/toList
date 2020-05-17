@@ -1,13 +1,28 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useState } from 'react'
 import { connect } from 'react-redux'
-import { constructorContent } from '../../common/helper';
-import { deleteTodoAC } from '../../redux/todo-reducer';
+import { constructorContent, getTodo } from '../../common/helper';
+import { deleteTodoAC, setTodo } from '../../redux/todo-reducer';
+import { api } from '../../api/api';
 
 
-const TodoPage = ({todo, status, deleteTodoAC}) => {
+const TodoPage = ({todo, status, deleteTodoAC, setTodo, userId}) => {
+  const getApiTodo = async (url) => {
+    try{
+      let data = await api.getTodo(url); 
+      setTodo(data.todo)
+    }catch(e){
+     console.log(e)
+    }
+  }
 
+  if(todo.length == 0){
+    getApiTodo(`/api/todo/${userId}`)
+  }
 
+  useEffect(() => {
+  
+    })
   let taskArr = [],
       projectArr = [],
       ideaArr = []; 
@@ -20,17 +35,26 @@ const TodoPage = ({todo, status, deleteTodoAC}) => {
   const deleteTodo = (todoCard) => {
     deleteTodoAC(todoCard)
   }
+  const updateTodo = async (newTodo) => {
+    try{
+      let data = await api.updateTodo(`/api/todo/update`, newTodo)
+      console.log(data)  
+    }catch(e){
+      console.log(e)
+    }
+ 
+  }
 
   if(todo.length !== 0){
-     todo.map(elem => constructorContent(elem, taskArr, projectArr, ideaArr))
+     todo[0].map(elem => constructorContent(elem, taskArr, projectArr, ideaArr))
      if(taskArr.length !== 0){
-       contentTask = taskArr.map((elem, index) => <Cards deleteTodo = {deleteTodo} todo = {elem.todo} comment = {elem.comment} priority = {elem.priority}/>) 
+       contentTask = taskArr.map((elem, index) => <Cards deleteTodo = {deleteTodo} todo = {elem.todo} comment = {elem.comment} updateTodo = {updateTodo} priority = {elem.priority}/>) 
      }
      if(projectArr.length !== 0){
-      contentProject = projectArr.map((elem, index) => <Cards deleteTodo = {deleteTodo} todo = {elem.todo} comment = {elem.comment} priority = {elem.priority}/>) 
+      contentProject = projectArr.map((elem, index) => <Cards deleteTodo = {deleteTodo} todo = {elem.todo} comment = {elem.comment} updateTodo = {updateTodo} priority = {elem.priority}/>) 
      }
      if(ideaArr.length !== 0){
-      contentIdea = ideaArr.map((elem, index) => <Cards deleteTodo = {deleteTodo} todo = {elem.todo} comment = {elem.comment} priority = {elem.priority}/>) 
+      contentIdea = ideaArr.map((elem, index) => <Cards deleteTodo = {deleteTodo} todo = {elem.todo} comment = {elem.comment} updateTodo = {updateTodo} priority = {elem.priority}/>) 
      }
   }
 
@@ -65,7 +89,8 @@ const TodoPage = ({todo, status, deleteTodoAC}) => {
    )
 }
 
-const Cards = ({todo, comment, priority, deleteTodo}) => {
+const Cards = ({todo, comment, priority, deleteTodo, updateTodo}) => {
+
   const [statusDelete, setDelete] = useState(false)
   const [colorCard, setColorCard] = useState(false)
   if(colorCard){
@@ -86,10 +111,11 @@ const Cards = ({todo, comment, priority, deleteTodo}) => {
       styleCard = "card #4caf50 green"
     break
   }
-  
  const changeColor = (e) => {
    e.preventDefault()
-  setColorCard(!colorCard)
+   let name = todo
+   updateTodo({name, priority})
+   setColorCard(!colorCard)
  }
 
  const answerDelete = (e) => {
@@ -116,7 +142,7 @@ const Cards = ({todo, comment, priority, deleteTodo}) => {
               </div>
               <div className="card-action">
                 <a href="#" onClick = {changeColor}>
-                   {!colorCard ? 'Зроблено' : 'Відмінити'}
+                   {priority !== '4' ? 'Зроблено' : 'Відмінити'}
                 </a>
                 {!statusDelete 
                       ? <a href="#" onClick = {answerDelete}>Видалити</a> 
@@ -136,8 +162,9 @@ const Cards = ({todo, comment, priority, deleteTodo}) => {
 
 const mapStateToProps = state => {
   return {
-    todo: state.todoPage.todo
+    todo: state.todoPage.todo,
+    userId: state.authPage.userId
   }
 }
 
-export default connect(mapStateToProps, {deleteTodoAC})(TodoPage)
+export default connect(mapStateToProps, {deleteTodoAC, setTodo})(TodoPage)

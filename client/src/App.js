@@ -14,8 +14,10 @@ import { setAuth } from './redux/auth-reducer';
 
 
 function App({isAuth, setAuth}) {
-  let auth = JSON.parse(localStorage.getItem('auth'))
   const [initialize, setInit] = useState(true)
+  let auth = JSON.parse(localStorage.getItem('auth'))
+  
+
   useEffect(() => {
     if(auth){
       setAuth(auth.userId, auth.token, auth.isAuth) 
@@ -24,18 +26,22 @@ function App({isAuth, setAuth}) {
     setAuth(null, null, false)
   }, [isAuth, initialize])
 
+  const logout = () => {
+    localStorage.removeItem('auth')
+    setInit(false)
+  } 
  
   
   return (
     <div className="App">
-      <Header setInit = {setInit}/> 
+      <Header logout = {logout}/> 
        <div className ='container'>
         <div className = 'test'>    
             <Switch>
               <Route exact path = '/' render = { () => <MainPage/>}/>
               <Route path='/add' render = {() => <AddTodoPage status = {true}/>}/>
               <Route path ='/auth' render = {() => <AuthPage/>}/>
-              {isAuth ? <Route path='/todo' render = {() => <TodoPage status = {true}/> }/> : '' }
+              {isAuth && <Route path='/todo' render = {() => <TodoPage status = {true}/> }/> }
             </Switch>
         </div>
       </div>

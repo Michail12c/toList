@@ -3,22 +3,27 @@ import M from 'materialize-css'
 import { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { setTodo } from '../../redux/todo-reducer';
+import { api } from '../../api/api';
 
-const AddTodoPage = ({status, setTodo}) => {
+const AddTodoPage = ({status, setTodo, userId}) => {
 
   useEffect(() => {
     M.AutoInit();
   })
-
+ 
  const [form, setForm] = useState({todo: '', comment: '', typeTodo: '', priority: ''})
-
  const changeHandler = event => {
   setForm({...form, [event.target.name]: event.target.value })
 } 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
    e.preventDefault()
    if(status){
-    console.log(form)
+     try{
+      const data = await api.sendPost(`/api/todo/add/${userId}`, form)
+      console.log(data)
+     }catch(e){
+       console.log(e)
+     }
    }else{
      setTodo(form)
     console.log('false:', form)  
@@ -101,7 +106,7 @@ const AddTodoPage = ({status, setTodo}) => {
 }
 const mapStateToProps = state => {
   return{
-    
+    userId: state.authPage.userId
   }
 }
 

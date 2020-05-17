@@ -1,4 +1,4 @@
-const {Schema, model} = require('mongoose')
+const {Schema, model, Types} = require('mongoose')
 
 const todoList = new Schema({
   todo: {
@@ -12,10 +12,25 @@ const todoList = new Schema({
     type: String,
     required: true
   },
+  prevPriority: {
+    type: String,
+    required: true
+  },
   priority: {
     type: String,
     required: true
+  },
+  date: {
+    type: Date,
+    required: true,
+    default: Date.now()
+  },
+  userId: {
+    type: Schema.Types.ObjectId,
+    ref: 'User'
   }
 })
 
-model.exports = model('Todo', todoList )
+
+
+module.exports = model('Todo', todoList )

@@ -2,14 +2,8 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-const Header = ({isAuth, setInit}) => {
-  const logout = () => {
-    localStorage.removeItem('auth')
-    setInit(false)
-  }
+const Header = ({isAuth, logout}) => {
 
-
-  
   return(
     <div className = 'header'> 
       <nav>
