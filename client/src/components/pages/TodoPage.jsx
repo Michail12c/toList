@@ -2,27 +2,15 @@ import React, { useEffect } from 'react'
 import { useState } from 'react'
 import { connect } from 'react-redux'
 import { constructorContent, getTodo } from '../../common/helper';
-import { deleteTodoAC, setTodo } from '../../redux/todo-reducer';
-import { api } from '../../api/api';
+import { deleteTodoAC, setTodo, deleteTodoThunk, updateTodoThunk, getTodoThunk } from '../../redux/todo-reducer';
 
 
-const TodoPage = ({todo, status, deleteTodoAC, setTodo, userId}) => {
-  const getApiTodo = async (url) => {
-    try{
-      let data = await api.getTodo(url); 
-      setTodo(data.todo)
-    }catch(e){
-     console.log(e)
-    }
-  }
+const TodoPage = ({todo, status, deleteTodoAC, userId, deleteTodoThunk, updateTodoThunk, getTodoThunk}) => {
 
   if(todo.length == 0){
-    getApiTodo(`/api/todo/${userId}`)
+    getTodoThunk(userId)
   }
-
-  useEffect(() => {
   
-    })
   let taskArr = [],
       projectArr = [],
       ideaArr = []; 
@@ -33,20 +21,16 @@ const TodoPage = ({todo, status, deleteTodoAC, setTodo, userId}) => {
   const [statusContent, setStatus] = useState(0)
 
   const deleteTodo = (todoCard) => {
-    deleteTodoAC(todoCard)
+   /*  deleteTodoAC(todoCard) */
+    deleteTodoThunk(todoCard, userId)
   }
+
   const updateTodo = async (newTodo) => {
-    try{
-      let data = await api.updateTodo(`/api/todo/update`, newTodo)
-      console.log(data)  
-    }catch(e){
-      console.log(e)
-    }
- 
+     updateTodoThunk(newTodo, userId)
   }
 
   if(todo.length !== 0){
-     todo[0].map(elem => constructorContent(elem, taskArr, projectArr, ideaArr))
+     todo.map(elem => constructorContent(elem, taskArr, projectArr, ideaArr))
      if(taskArr.length !== 0){
        contentTask = taskArr.map((elem, index) => <Cards deleteTodo = {deleteTodo} todo = {elem.todo} comment = {elem.comment} updateTodo = {updateTodo} priority = {elem.priority}/>) 
      }
@@ -93,9 +77,7 @@ const Cards = ({todo, comment, priority, deleteTodo, updateTodo}) => {
 
   const [statusDelete, setDelete] = useState(false)
   const [colorCard, setColorCard] = useState(false)
-  if(colorCard){
-    priority = '4' 
-  }
+
   let styleCard; 
   switch(priority){
     case '1':
@@ -167,4 +149,5 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps, {deleteTodoAC, setTodo})(TodoPage)
+
+export default connect(mapStateToProps, {deleteTodoAC, setTodo, deleteTodoThunk, updateTodoThunk,getTodoThunk})(TodoPage)

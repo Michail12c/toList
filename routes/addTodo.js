@@ -13,9 +13,19 @@ router.get('/:id', async (req, res) => {
   }
 })
 
-router.post('/add/:id', async (req, res) => {
+router.post('/add/:id',
+[
+  check('todo', 'Введіть завдання').isLength({min: 1})
+],
+async (req, res) => {
   try{
     const {todo, comment, typeTodo, priority} = req.body 
+    
+    const candidateTodo = await Todo.findOne({todo})
+    if(candidateTodo){
+      return res.status(400).json({message: 'Таке завдання вже існує'})
+    }
+
     const userId = req.params.id
     const prevPriority = priority 
     const newTodo = new Todo({todo, comment, typeTodo, priority, prevPriority, userId})
@@ -36,6 +46,16 @@ router.put('/update', async (req, res) => {
      }
     const todo = await Todo.updateOne({todo: name}, {priority: '4'})
     res.status(200).json({message: 'Завдання зміненно'})
+  }catch(e){
+    res.status(500).json({message: "Error..."})
+  }
+})
+
+router.delete('/:todo', async(req, res) => {
+  try{
+    const todo = await Todo.findOne({todo: req.params.todo})
+    todo.remove()
+    res.status(200).json({message: 'Завдання видалено'})
   }catch(e){
     res.status(500).json({message: "Error..."})
   }

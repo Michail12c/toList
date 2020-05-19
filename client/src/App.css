@@ -44,6 +44,7 @@ a.activeAuth{
 /* add todo page */
 
 .addTodo{
+  position: relative;
  padding-top: 30px;
  padding-bottom: 80px;
 }
@@ -121,6 +122,13 @@ a.activeAuth{
 .heightTodoForm{
   margin-bottom: -3rem!important;
 }
+/* .responseBox{
+  position: absolute;
+  z-index: 12;
+  background-color:rgb(224, 188, 129);
+  width: 40%;
+  height: 40%;
+} */
 
 
 

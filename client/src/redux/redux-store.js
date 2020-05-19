@@ -1,4 +1,5 @@
-import {createStore, combineReducers} from 'redux'
+import {createStore, combineReducers, applyMiddleware } from 'redux'
+import thunkMiddleware from 'redux-thunk'
 import todoReducer from './todo-reducer'
 import authReducer from './auth-reducer'
 
@@ -7,7 +8,7 @@ let reducers = combineReducers({
  authPage: authReducer
 })
 
-let store = createStore(reducers)
+let store = createStore(reducers, applyMiddleware(thunkMiddleware))
 
 window.store = store 
 

@@ -2,37 +2,40 @@ import React from 'react'
 import M from 'materialize-css'
 import { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { setTodo } from '../../redux/todo-reducer';
-import { api } from '../../api/api';
+import { setTodo, addTodoThunk } from '../../redux/todo-reducer';
 
-const AddTodoPage = ({status, setTodo, userId}) => {
+const AddTodoPage = ({status, setTodo, userId, addTodoThunk}) => {
 
   useEffect(() => {
     M.AutoInit();
   })
  
  const [form, setForm] = useState({todo: '', comment: '', typeTodo: '', priority: ''})
+ const [disabled, setDisabled] = useState(false)
+ const [response, setResponse] = useState('')
+
  const changeHandler = event => {
   setForm({...form, [event.target.name]: event.target.value })
 } 
   const handleSubmit = async(e) => {
    e.preventDefault()
    if(status){
-     try{
-      const data = await api.sendPost(`/api/todo/add/${userId}`, form)
-      console.log(data)
-     }catch(e){
-       console.log(e)
-     }
+      setDisabled(true) 
+      const data  = await addTodoThunk(userId, form)
+      setResponse(data.message)
+      setDisabled(false)
    }else{
      setTodo(form)
-    console.log('false:', form)  
+     console.log('false:', form)  
   }
 }
 
 
   return(
     <div className = "addTodo">
+      <div className="responseBox">
+        {response}
+      </div>
      {status ? <h1>Add todo</h1> : ''}
      <form onSubmit = {handleSubmit}>
        <div className="row">
@@ -98,7 +101,10 @@ const AddTodoPage = ({status, setTodo, userId}) => {
           </form>
         </div>
         <div className = 'addTodoBtn'>
-          <button type='submit' className='btn'>Додати</button>
+          {!disabled
+              ? <button type='submit'  className='btn'>Додати</button>
+              : <button type='submit' disabled className='btn'>Додати</button>
+           }
         </div>   
        </form> 
     </div>
@@ -110,5 +116,4 @@ const mapStateToProps = state => {
   }
 }
 
-
-export default connect(mapStateToProps, {setTodo})(AddTodoPage)
+export default connect(mapStateToProps, {setTodo, addTodoThunk})(AddTodoPage)

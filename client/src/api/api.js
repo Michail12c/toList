@@ -15,7 +15,7 @@ export const api = {
       body: JSON.stringify(body)
     })
      .then(res => res.json())
-     .then(response => response)
+     .then(response => response )
      return data
   },
   updateTodo(url, body){
@@ -30,8 +30,13 @@ export const api = {
       .then(res => res.json())
       .then(response => response)
       return data
+   },
+   removeTodo(url){
+    let data = fetch(url, {
+      method: 'delete'
+    })
+     .then(res => res.json())
+     .then(response => response)
+     return data 
    }
-
-
-
 }
