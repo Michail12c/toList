@@ -25,6 +25,10 @@ const todoList = new Schema({
     required: true,
     default: Date.now()
   },
+
+  changeDate:{
+    type: Date,
+  },
   userId: {
     type: Schema.Types.ObjectId,
     ref: 'User'

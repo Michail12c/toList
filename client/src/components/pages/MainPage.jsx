@@ -1,6 +1,7 @@
 import React from 'react'
 import { useState } from 'react'
 import DemonstrationContent from './DemonstrationContent'
+import image from '../../image/imagenote.jpg'
 
 const MainPage = () => {
   const [statusContent, setStatusContent] = useState(false)
@@ -20,7 +21,7 @@ const MainContent = ({setStatusContent}) => {
       MainPage
     </h1>
     <h5>test text</h5>
-     <p> <img src="https://www.aisheonline.com/wp-content/uploads/2017/06/a-te-li-slova-ya-uchu.jpg" alt="image"/>
+     <p> <img src={image} alt="image"/>
        Структура додатку створена на основі концепцій Максима Дорофеєва. Розписати різницю між завданнями, проектами та ідеями.
      </p>
      <p>

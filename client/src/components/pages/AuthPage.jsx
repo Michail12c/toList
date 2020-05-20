@@ -9,23 +9,30 @@ import M from 'materialize-css'
 const AuthPage = ({setAuth, isAuth}) => {
 
 const [form, setForm] = useState({text: '', password: ''})
+const [disabled, setDisabled] = useState(false)
 
 const changeHandler = event => {
   setForm({...form, [event.target.name]: event.target.value })
 }
 
-const sendData = (e) => {
+const sendData = async (e) => {
   e.preventDefault()
-  api.sendPost('/api/auth/register', form)
+  setDisabled(true)
+  await api.sendPost('/api/auth/register', form)
+  setForm({form, text: '', password: ''})
+  setDisabled(false)
 }
 
 const sendLogin = async (e) => {
      e.preventDefault()
   try {
+    setDisabled(true)
     const data = await api.sendPost('/api/auth/login', form)
     let isAuth = !!data.token
     localStorage.setItem('auth', JSON.stringify({userId: data.userId, token: data.token, isAuth: isAuth}))
     setAuth( data.userId, data.token, isAuth)
+    setForm({form, text: '', password: ''})
+    setDisabled(false)
   } catch (e) {
     console.log(e)
   }
@@ -57,6 +64,7 @@ const sendLogin = async (e) => {
                           type="text" 
                           className="validate" 
                           name ="text" 
+                          value = {form.text}
                           onChange = {changeHandler}
                           required/>
                           <label htmlFor="text">Логін</label>
@@ -68,6 +76,7 @@ const sendLogin = async (e) => {
                            type="password"  
                            className="validate" 
                            name="password" 
+                           value = {form.password}
                            onChange = {changeHandler}
                            required/>
                           <label htmlFor="password">Пароль</label>
@@ -85,7 +94,10 @@ const sendLogin = async (e) => {
                         </div>
                       </div>
                       <span className = "passwordForget"><a href="">Забули пароль?</a></span>
-                      <button onClick= {sendData} className="waves-effect btn send-auth">Відправити</button>
+                      { !disabled
+                           ? <button  onClick= {sendData} className="waves-effect btn send-auth">Відправити</button>
+                           : <button disabled className="waves-effect btn send-auth">Відправити</button>                    
+                       }
                     </form>
                
                   </div>
@@ -101,6 +113,7 @@ const sendLogin = async (e) => {
                           type="text" 
                           className="validate" 
                           name="text"
+                          value = {form.text}
                           onChange= {changeHandler}
                            requier/>
                           <label htmlFor="text">Login</label>
@@ -111,13 +124,17 @@ const sendLogin = async (e) => {
                           <input id="password"
                            type="password" 
                            name="password" 
+                           value = {form.password}
                            className="validate" 
                            onChange = {changeHandler}
                            required/>
                           <label htmlFor="password">Password</label>
                         </div>
                       </div>
-                      <button  onClick= {sendLogin} className="waves-effect btn send-auth">Відправити</button>
+                       { !disabled
+                           ? <button  onClick= {sendLogin} className="waves-effect btn send-auth">Відправити</button>
+                           : <button disabled  className="waves-effect btn send-auth">Відправити</button>                    
+                       }
                     </form>
                   </div>
                 </div>

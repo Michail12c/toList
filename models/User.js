@@ -10,6 +10,11 @@ const schema = new Schema({
     type: String,
     required: true
   },
+  date: {
+    type: Date,
+    require: true,
+    default: Date.now()
+  },
   todo: {
     items: [
      {

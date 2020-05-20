@@ -3,6 +3,9 @@ import M from 'materialize-css'
 import { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { setTodo, addTodoThunk } from '../../redux/todo-reducer';
+import idea from '../../image/idea.jpg'
+import project from '../../image/project.jpg'
+import task from '../../image/training.jpg'
 
 const AddTodoPage = ({status, setTodo, userId, addTodoThunk}) => {
 
@@ -23,6 +26,7 @@ const AddTodoPage = ({status, setTodo, userId, addTodoThunk}) => {
       setDisabled(true) 
       const data  = await addTodoThunk(userId, form)
       setResponse(data.message)
+      setForm({form, todo: '', comment: '', typeTodo: '', priority: '' })
       setDisabled(false)
    }else{
      setTodo(form)
@@ -44,6 +48,7 @@ const AddTodoPage = ({status, setTodo, userId, addTodoThunk}) => {
             <div className="input-field col s10 offset-s1">
               <textarea id="textarea1" 
               name = "todo" 
+              value = {form.todo}
               className="materialize-textarea"
                onChange={changeHandler}></textarea>
               <label forhtml="textarea1">Назва</label>
@@ -57,6 +62,7 @@ const AddTodoPage = ({status, setTodo, userId, addTodoThunk}) => {
             <div className="input-field col s10 offset-s1">
               <textarea id="textarea1" 
               name = "comment" 
+              value = {form.comment}
               className="materialize-textarea"
                onChange={changeHandler}></textarea>
               <label forhtml="textarea1">Коментар</label>
@@ -66,11 +72,11 @@ const AddTodoPage = ({status, setTodo, userId, addTodoThunk}) => {
       </div>
        <div className="row">
         <div className="input-field col s10 offset-s1">
-          <select className="icons" name="typeTodo" onChange={changeHandler}>
+          <select className="icons" name="typeTodo" value = {form.typeTodo} onChange={changeHandler} >
             <option value="" disabled selected>Виберіть тип завдання</option>
-            <option value="task" name = "typeTodo" data-icon="https://lh3.googleusercontent.com/proxy/QerZSl3OcZZgmqBKcZ4idWAodAtFfzEEmMfuh077_qY15QI4tSOwcZZadgTKLmr8Wje882zvQLUH4dHQDm59r41EsYFsrJ_HD7Ivj8IlfjUtp6iSfCcTWOcLejgdR-_Hf5AMaILy" className="left">Завдання</option>
-            <option value="project" name = "typeTodo" data-icon="https://master-prod.s3.eu-central-1.amazonaws.com/organization/75654organization.jpg" className="left">Проекти</option>
-            <option value="idea"  name = "typeTodo" data-icon="https://img.freepik.com/free-photo/_23-2147845946.jpg?size=626&ext=jpg" className="left">Ідеї</option>
+            <option value="task" name = "typeTodo" data-icon= {task} className="left">Завдання</option>
+            <option value="project" name = "typeTodo" data-icon={project} className="left">Проекти</option>
+            <option value="idea"  name = "typeTodo" data-icon={idea} className="left">Ідеї</option>
           </select>
           <label>Тип завдання</label>
         </div>

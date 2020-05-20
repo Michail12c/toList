@@ -10,7 +10,6 @@ const TodoPage = ({todo, status, deleteTodoAC, userId, deleteTodoThunk, updateTo
   if(todo.length == 0){
     getTodoThunk(userId)
   }
-  
   let taskArr = [],
       projectArr = [],
       ideaArr = []; 
@@ -32,13 +31,13 @@ const TodoPage = ({todo, status, deleteTodoAC, userId, deleteTodoThunk, updateTo
   if(todo.length !== 0){
      todo.map(elem => constructorContent(elem, taskArr, projectArr, ideaArr))
      if(taskArr.length !== 0){
-       contentTask = taskArr.map((elem, index) => <Cards deleteTodo = {deleteTodo} todo = {elem.todo} comment = {elem.comment} updateTodo = {updateTodo} priority = {elem.priority}/>) 
+       contentTask = taskArr.map((elem, index) => <Cards date={elem.date} deleteTodo = {deleteTodo} changeDate={elem.changeDate} todo = {elem.todo} comment = {elem.comment} updateTodo = {updateTodo} priority = {elem.priority}/>) 
      }
      if(projectArr.length !== 0){
-      contentProject = projectArr.map((elem, index) => <Cards deleteTodo = {deleteTodo} todo = {elem.todo} comment = {elem.comment} updateTodo = {updateTodo} priority = {elem.priority}/>) 
+      contentProject = projectArr.map((elem, index) => <Cards date={elem.date}  deleteTodo = {deleteTodo} changeDate={elem.changeDate}  todo = {elem.todo} comment = {elem.comment} updateTodo = {updateTodo} priority = {elem.priority}/>) 
      }
      if(ideaArr.length !== 0){
-      contentIdea = ideaArr.map((elem, index) => <Cards deleteTodo = {deleteTodo} todo = {elem.todo} comment = {elem.comment} updateTodo = {updateTodo} priority = {elem.priority}/>) 
+      contentIdea = ideaArr.map((elem, index) => <Cards date={elem.date}  deleteTodo = {deleteTodo} changeDate={elem.changeDate}  todo = {elem.todo} comment = {elem.comment} updateTodo = {updateTodo} priority = {elem.priority}/>) 
      }
   }
 
@@ -73,11 +72,28 @@ const TodoPage = ({todo, status, deleteTodoAC, userId, deleteTodoThunk, updateTo
    )
 }
 
-const Cards = ({todo, comment, priority, deleteTodo, updateTodo}) => {
+const Cards = ({todo, comment, priority, deleteTodo, updateTodo, date, changeDate}) => {
+  
+  let formatDate; 
 
   const [statusDelete, setDelete] = useState(false)
   const [colorCard, setColorCard] = useState(false)
 
+  const options = {
+    year: 'numeric',
+    month: 'long',
+    day: '2-digit',
+    hour:'2-digit',
+    minute:'2-digit',
+    second:'2-digit'
+  }
+   if(changeDate){
+     changeDate = Date.parse(changeDate);
+     formatDate = new Intl.DateTimeFormat('ua', options).format(changeDate)
+   }
+
+  date = Date.parse(date)
+  const dateTodo = new Intl.DateTimeFormat('ua', options).format(date)
   let styleCard; 
   switch(priority){
     case '1':
@@ -121,6 +137,8 @@ const Cards = ({todo, comment, priority, deleteTodo, updateTodo}) => {
               <div className="card-content white-text">
                 <span className="card-title">{todo}</span>
                 <p>{comment}</p>
+                 <p>Додано: <span>{ dateTodo}</span></p> 
+                 {formatDate  && <p>Зробленно: <span>{ formatDate }</span></p>} 
               </div>
               <div className="card-action">
                 <a href="#" onClick = {changeColor}>
@@ -132,7 +150,7 @@ const Cards = ({todo, comment, priority, deleteTodo, updateTodo}) => {
                             <a href="#" onClick = {(e) => deleteCard(e)}><span className = "deleteYes">так</span></a> 
                             <a href="#" onClick = {answerDelete}>ні</a>
                         </span> 
-                }
+                 }
               </div>
             </div>
           </div>
@@ -150,4 +168,4 @@ const mapStateToProps = state => {
 }
 
 
-export default connect(mapStateToProps, {deleteTodoAC, setTodo, deleteTodoThunk, updateTodoThunk,getTodoThunk})(TodoPage)
+export default connect(mapStateToProps, {deleteTodoAC, deleteTodoThunk, updateTodoThunk,getTodoThunk})(TodoPage)

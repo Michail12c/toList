@@ -41,10 +41,10 @@ router.put('/update', async (req, res) => {
     const {name, priority} = req.body 
      if(priority === '4'){
       const prevPriority = await Todo.findOne({todo: name}) 
-      const todo = await Todo.updateOne({todo: name}, {priority: prevPriority.prevPriority})
+      const todo = await Todo.updateOne({todo: name}, {priority: prevPriority.prevPriority, changeDate: ''})
       return res.status(200).json({message: 'Зміну відміненно'})
      }
-    const todo = await Todo.updateOne({todo: name}, {priority: '4'})
+    const todo = await Todo.updateOne({todo: name}, {priority: '4', changeDate: Date.now()})
     res.status(200).json({message: 'Завдання зміненно'})
   }catch(e){
     res.status(500).json({message: "Error..."})
