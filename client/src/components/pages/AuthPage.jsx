@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux';
 import {Redirect} from 'react-router-dom'
 import { api } from '../../api/api'
-import {setAuth} from '../../redux/auth-reducer'
+import {loginThunk, registerThunk} from '../../redux/auth-reducer'
 import M from 'materialize-css'
 
 
-const AuthPage = ({setAuth, isAuth}) => {
+const AuthPage = ({isAuth, loginThunk, registerThunk}) => {
 
 const [form, setForm] = useState({text: '', password: ''})
 const [disabled, setDisabled] = useState(false)
@@ -18,24 +18,17 @@ const changeHandler = event => {
 const sendData = async (e) => {
   e.preventDefault()
   setDisabled(true)
-  await api.sendPost('/api/auth/register', form)
+  await registerThunk(form)
   setForm({form, text: '', password: ''})
   setDisabled(false)
 }
 
 const sendLogin = async (e) => {
-     e.preventDefault()
-  try {
+    e.preventDefault()
     setDisabled(true)
-    const data = await api.sendPost('/api/auth/login', form)
-    let isAuth = !!data.token
-    localStorage.setItem('auth', JSON.stringify({userId: data.userId, token: data.token, isAuth: isAuth}))
-    setAuth( data.userId, data.token, isAuth)
+    await loginThunk(form)
     setForm({form, text: '', password: ''})
     setDisabled(false)
-  } catch (e) {
-    console.log(e)
-  }
 }
  
  useEffect(() => {
@@ -147,4 +140,5 @@ const mapStateToProps = state => {
   isAuth: state.authPage.isAuth
   }
 }
-export default connect(mapStateToProps, {setAuth})(AuthPage)
+
+export default connect(mapStateToProps, { loginThunk, registerThunk })(AuthPage)
