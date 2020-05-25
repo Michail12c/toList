@@ -28,7 +28,7 @@ async (req, res) => {
 
     const userId = req.params.id
     const prevPriority = priority 
-    const newTodo = new Todo({todo, comment, typeTodo, priority, prevPriority, userId})
+    const newTodo = new Todo({todo, comment, typeTodo, priority, prevPriority, userId, date: Date.now()})
     await newTodo.save()
     res.status(201).json({message: 'Завдання додано'})
   }catch(e){

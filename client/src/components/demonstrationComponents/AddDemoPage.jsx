@@ -6,33 +6,39 @@ import { addTodoThunk } from '../../redux/todo-reducer';
 import idea from '../../image/idea.jpg'
 import project from '../../image/project.jpg'
 import task from '../../image/training.jpg'
+import { setTodoDemo } from '../../redux/demo-reducer';
 
-const AddTodoPage = ({ userId, addTodoThunk}) => {
+const AddDemoPage = ({setTodoDemo}) => {
 
   useEffect(() => {
     M.AutoInit();
   })
  
- const [form, setForm] = useState({todo: '', comment: '', typeTodo: '', priority: ''})
+ const [form, setForm] = useState({todo: '', comment: '', typeTodo: '', priority: '', date: Date.now()})
  const [disabled, setDisabled] = useState(false)
+
 
  const changeHandler = event => {
   setForm({...form, [event.target.name]: event.target.value })
 } 
+ 
+let setTodo = (data) => {
+  setTimeout(setTodoDemo(data), 1000 )
+}
 
   const handleSubmit = async (e) => {
       e.preventDefault()
       setDisabled(true) 
-      const response  = await addTodoThunk(userId, form)
-      setForm({form, todo: '', comment: '', typeTodo: '', priority: '' })
-      window.M.toast({html: response.message})
+      await setTodo(form)
+      setForm({ todo: '', comment: '', typeTodo: '', priority: '1' })
+      window.M.toast({html: 'Завдання додано'})
       setDisabled(false) 
 }
 
 
   return(
     <div className = "addTodo">
-    <h1>Add todo</h1> 
+    <h3>Add todo</h3> 
      <form onSubmit = {handleSubmit}>
        <div className="row">
         <form className="col s12 heightTodoForm">
@@ -110,8 +116,8 @@ const AddTodoPage = ({ userId, addTodoThunk}) => {
 }
 const mapStateToProps = state => {
   return{
-    userId: state.authPage.userId
+   
   }
 }
 
-export default connect(mapStateToProps, { addTodoThunk })(AddTodoPage)
+export default connect(mapStateToProps, { setTodoDemo })(AddDemoPage)

@@ -48,7 +48,7 @@ a.activeAuth{
  padding-top: 30px;
  padding-bottom: 80px;
 }
-.addTodo h1{
+.addTodo h1, h3{
   margin-bottom: 3rem;
   text-align: center;
 }
@@ -75,9 +75,6 @@ a.activeAuth{
  position: absolute;
  right: 10px;
  top: -2rem;
-}
-.todoPage{
- 
 }
 .menuTodo{
  /*  position: fixed; */
@@ -122,13 +119,10 @@ a.activeAuth{
 .heightTodoForm{
   margin-bottom: -3rem!important;
 }
-/* .responseBox{
-  position: absolute;
-  z-index: 12;
-  background-color:rgb(224, 188, 129);
-  width: 40%;
-  height: 40%;
-} */
+.headerActive{
+  color:rgb(105, 103, 103);
+  background-color:rgba(142, 177, 136, 0.5);;  
+}
 
 
 

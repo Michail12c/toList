@@ -10,10 +10,10 @@ const Header = ({isAuth, logout}) => {
         <div className="nav-wrapper #558b2f light-green darken-3">
           <a href="#" className="brand-logo">Logo</a>
           <ul id="nav-mobile" className="right hide-on-med-and-down">
-            <li><NavLink  to='/'>Головна</NavLink></li>
-            {isAuth ? <li><NavLink to='/add'>Додати</NavLink></li> : ''}
-            {isAuth ? <li><NavLink to='/todo'>Завдання</NavLink></li> : ''}
-            <li><NavLink to ='/auth'>{!isAuth ? "Ввійти" : <span onClick ={logout}>Вийти</span>}</NavLink></li>
+            <li><NavLink exact activeClassName="headerActive" to='/'>Головна</NavLink></li>
+            {isAuth ? <li><NavLink exact activeClassName="headerActive" to='/add'>Додати</NavLink></li> : ''}
+            {isAuth ? <li><NavLink exact activeClassName="headerActive" to='/todo'>Завдання</NavLink></li> : ''}
+            <li><NavLink exact activeClassName="headerActive" to ='/auth'>{!isAuth ? "Ввійти" : <span onClick ={logout}>Вийти</span>}</NavLink></li>
           </ul>
         </div>
       </nav>

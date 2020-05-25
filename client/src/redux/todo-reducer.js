@@ -40,10 +40,10 @@ export const getTodoThunk = (userId) => async(dispatch) => {
 
 export const addTodoThunk = (userId, form) => async(dispatch) => {
   try{
-   await api.sendPost(`/api/todo/add/${userId}`, form)
+   const response = await api.sendPost(`/api/todo/add/${userId}`, form)
    const data = await api.getTodo(`/api/todo/${userId}`)
    dispatch(setTodo(data.todo))
-   return data
+   return response
   }catch(e){
     console.log(e)
   }

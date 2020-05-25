@@ -2,14 +2,11 @@ import React, { useEffect } from 'react'
 import { useState } from 'react'
 import { connect } from 'react-redux'
 import { constructorContent, countDone } from '../../common/helper';
-import {  deleteTodoThunk, updateTodoThunk, getTodoThunk } from '../../redux/todo-reducer';
+import { setTodoDemo, updateTodoAC } from '../../redux/demo-reducer';
 
 
-const TodoPage = ({todo, userId, deleteTodoThunk, updateTodoThunk, getTodoThunk}) => {
+const TodoDemoPage = ({todo, setTodoDemo, updateTodoAC}) => {
   
-  if(todo.length === 0 ){
-    getTodoThunk(userId)
-  }
   let taskArr = [],
       projectArr = [],
       ideaArr = []; 
@@ -23,11 +20,11 @@ const TodoPage = ({todo, userId, deleteTodoThunk, updateTodoThunk, getTodoThunk}
   const [statusContent, setStatus] = useState(0)
 
   const deleteTodo = (todoCard) => {
-    deleteTodoThunk(todoCard, userId)
+    
   }
 
   const updateTodo = async (newTodo) => {
-     updateTodoThunk(newTodo, userId)
+    updateTodoAC(newTodo.todo)
   }
 
   if(todo.length !== 0){
@@ -93,11 +90,9 @@ const Cards = ({todo, comment, priority, deleteTodo, updateTodo, date, changeDat
     second:'2-digit'
   }
    if(changeDate){
-     changeDate = Date.parse(changeDate);
      formatDate = new Intl.DateTimeFormat('ua', options).format(changeDate)
    }
 
-  date = Date.parse(date)
   let dateTodo = new Intl.DateTimeFormat('ua', options).format(date)
   let styleCard; 
   switch(priority){
@@ -116,8 +111,7 @@ const Cards = ({todo, comment, priority, deleteTodo, updateTodo, date, changeDat
   }
  const changeColor = (e) => {
    e.preventDefault()
-   let name = todo
-   updateTodo({name, priority})
+   updateTodo({todo, priority})
    setColorCard(!colorCard)
  }
 
@@ -167,10 +161,8 @@ const Cards = ({todo, comment, priority, deleteTodo, updateTodo, date, changeDat
 
 const mapStateToProps = state => {
   return {
-    todo: state.todoPage.todo,
-    userId: state.authPage.userId
+    todo: state.demoPage.todo
   }
 }
 
-
-export default connect(mapStateToProps, { deleteTodoThunk, updateTodoThunk,getTodoThunk})(TodoPage)
+export default connect(mapStateToProps, {setTodoDemo, updateTodoAC})(TodoDemoPage)

@@ -1,19 +1,16 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import M from 'materialize-css'
-import AddTodoPage from './AddTodoPage'
-import TodoPage from './TodoPage'
+import AddDemoPage from '../demonstrationComponents/AddDemoPage'
+import TodoDemoPages from '../demonstrationComponents/TodoDemoPages'
 
 
-const DemonstrationContent = ({setStatusContent, todo}) => {
+const DemonstrationContent = ({ setStatusContent }) => {
 
   useEffect(() => {
     M.AutoInit();
    })
 
-   if(todo.length !== 0){
-     console.log(todo)
-   }
   return(
     <div className = 'demonstrationPage'>
         <div className="row">
@@ -24,10 +21,10 @@ const DemonstrationContent = ({setStatusContent, todo}) => {
             </ul>
           </div>
               <div id="addTodo" className="col s12">
-                <AddTodoPage status = {false}/> 
+                <AddDemoPage/>
               </div>
               <div id="showTodo" className="col s12 showTodo">
-                <TodoPage status = {false}/> 
+               <TodoDemoPages/>
               </div>
           </div>  
          <button onClick = {() => setStatusContent(false)} className='btn #00796b teal darken-2'>Повернутись</button>

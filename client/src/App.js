@@ -15,7 +15,7 @@ import { setAuth } from './redux/auth-reducer';
 
 function App({isAuth, setAuth}) {
   const [initialize, setInit] = useState(true)
-  let auth = JSON.parse(localStorage.getItem('auth'))
+  let auth = JSON.parse(sessionStorage.getItem('auth'))
   
 
   useEffect(() => {
@@ -27,7 +27,7 @@ function App({isAuth, setAuth}) {
   }, [isAuth, initialize])
 
   const logout = () => {
-    localStorage.removeItem('auth')
+    sessionStorage.removeItem('auth')
     setInit(false)
   } 
  

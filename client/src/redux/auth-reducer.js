@@ -25,7 +25,7 @@ export const loginThunk = (form) => async (dispatch) => {
   try{
     const data = await api.sendPost('/api/auth/login', form)
     let isAuth = !!data.token
-    localStorage.setItem('auth', JSON.stringify({userId: data.userId, token: data.token, isAuth: isAuth,}))
+    sessionStorage.setItem('auth', JSON.stringify({userId: data.userId, token: data.token, isAuth: isAuth,}))
     dispatch(setAuth( data.userId, data.token, isAuth))
   }catch(e){
     console.log(e) 
