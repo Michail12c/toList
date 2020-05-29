@@ -10,12 +10,33 @@
 .inner-authPage{
  margin-bottom: 2rem;
 }
-
+.main-content a:hover{
+  color:rgb(98, 197, 224); 
+}
 a.activeAuth{
   color: green!important; 
 }
 .activeAuth.active{
   background-color: greenyellow!important;
+}
+.title-sentence{
+  font-style: italic;
+  color:rgb(83, 72, 72);
+  font-weight: bold;
+}
+.title-sentence span{
+  font-style: normal;
+  font-size: 0.9rem;
+  color:rgb(124, 113, 113);
+}
+.section-barge span{
+  color:rgb(83, 72, 72);
+  font-weight: bold;
+}
+.badge-task-img{
+  width: 10rem !important;
+  height: auto;
+  margin-left: 10px;
 }
 .passwordForget{
   margin-right: 16rem;
@@ -23,11 +44,21 @@ a.activeAuth{
 .main-page{
   padding-bottom: 40px;
 }
+.top-title{
+  font-weight: bold;
+}
 .title-main img{
   width: 400px;
   height: auto; 
   float: right;
   margin: 5px 10px;
+}
+.middle-title img{
+  width: 350px;
+  height: auto; 
+  float: left;
+  margin-top: 5px; 
+  margin-right: 15px;
 }
 .demonstration{
  display: flex;
@@ -120,8 +151,17 @@ a.activeAuth{
   margin-bottom: -3rem!important;
 }
 .headerActive{
-  color:rgb(105, 103, 103);
+  color:rgb(216, 204, 94);
   background-color:rgba(142, 177, 136, 0.5);;  
+}
+.selectSection{
+  margin-top: 2.5rem;
+}
+.style-logo{
+  font-family:'MarckScript-Regular';
+}
+.section-task-badge{
+  display: flex;
 }
 
 

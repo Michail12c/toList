@@ -1,11 +1,11 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { useState } from 'react'
 import { connect } from 'react-redux'
 import { constructorContent, countDone } from '../../common/helper';
-import { setTodoDemo, updateTodoAC } from '../../redux/demo-reducer';
+import { updateTodoAC, deleteTodoAC, cancelUpdateAC } from '../../redux/demo-reducer';
 
 
-const TodoDemoPage = ({todo, setTodoDemo, updateTodoAC}) => {
+const TodoDemoPage = ({todo, updateTodoAC, deleteTodoAC, cancelUpdateAC}) => {
   
   let taskArr = [],
       projectArr = [],
@@ -20,26 +20,30 @@ const TodoDemoPage = ({todo, setTodoDemo, updateTodoAC}) => {
   const [statusContent, setStatus] = useState(0)
 
   const deleteTodo = (todoCard) => {
-    
+    deleteTodoAC(todoCard)
   }
 
   const updateTodo = async (newTodo) => {
     updateTodoAC(newTodo.todo)
   }
 
+  const cancelUpdate = (todo) => {
+   cancelUpdateAC(todo)
+  }
+
   if(todo.length !== 0){
      todo.map(elem => constructorContent(elem, taskArr, projectArr, ideaArr))
      if(taskArr.length !== 0){
        doneTask = countDone(taskArr)
-       contentTask = taskArr.map((elem, index) => <Cards date={elem.date} deleteTodo = {deleteTodo} changeDate={elem.changeDate} todo = {elem.todo} comment = {elem.comment} updateTodo = {updateTodo} priority = {elem.priority}/>) 
+       contentTask = taskArr.map((elem, index) => <Cards cancelUpdate={cancelUpdate} date={elem.date} deleteTodo = {deleteTodo} changeDate={elem.changeDate} todo = {elem.todo} comment = {elem.comment} updateTodo = {updateTodo} priority = {elem.priority}/>) 
      }
      if(projectArr.length !== 0){
       doneProject = countDone(projectArr)
-      contentProject = projectArr.map((elem, index) => <Cards date={elem.date}  deleteTodo = {deleteTodo} changeDate={elem.changeDate}  todo = {elem.todo} comment = {elem.comment} updateTodo = {updateTodo} priority = {elem.priority}/>) 
+      contentProject = projectArr.map((elem, index) => <Cards cancelUpdate={cancelUpdate} date={elem.date}  deleteTodo = {deleteTodo} changeDate={elem.changeDate}  todo = {elem.todo} comment = {elem.comment} updateTodo = {updateTodo} priority = {elem.priority}/>) 
      }
      if(ideaArr.length !== 0){
        doneIdea = countDone(ideaArr)
-       contentIdea = ideaArr.map((elem, index) => <Cards date={elem.date}  deleteTodo = {deleteTodo} changeDate={elem.changeDate}  todo = {elem.todo} comment = {elem.comment} updateTodo = {updateTodo} priority = {elem.priority}/>) 
+       contentIdea = ideaArr.map((elem, index) => <Cards cancelUpdate={cancelUpdate} date={elem.date}  deleteTodo = {deleteTodo} changeDate={elem.changeDate}  todo = {elem.todo} comment = {elem.comment} updateTodo = {updateTodo} priority = {elem.priority}/>) 
      }
   }
 
@@ -50,7 +54,7 @@ const TodoDemoPage = ({todo, setTodoDemo, updateTodoAC}) => {
              {statusContent == 1 && `Всього проектів ${projectArr.length}.` + ` Виконано ${doneProject}.` }
              {statusContent == 2 && `Всього ідей ${ideaArr.length}.` + ` Виконано ${doneIdea}.` }
         </div>
-        <h1> Todo Page</h1> 
+        <h3> Todo Page</h3> 
       
         <div className = 'todoPage row'>
            <div className = 'menuTodo col s4 m2'>
@@ -74,7 +78,7 @@ const TodoDemoPage = ({todo, setTodoDemo, updateTodoAC}) => {
    )
 }
 
-const Cards = ({todo, comment, priority, deleteTodo, updateTodo, date, changeDate}) => {
+const Cards = ({todo, comment, priority, deleteTodo, updateTodo, date, changeDate, cancelUpdate}) => {
   
   let formatDate; 
 
@@ -111,7 +115,7 @@ const Cards = ({todo, comment, priority, deleteTodo, updateTodo, date, changeDat
   }
  const changeColor = (e) => {
    e.preventDefault()
-   updateTodo({todo, priority})
+   priority !== '4' ? updateTodo({todo, priority}) : cancelUpdate(todo)
    setColorCard(!colorCard)
  }
 
@@ -165,4 +169,4 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps, {setTodoDemo, updateTodoAC})(TodoDemoPage)
+export default connect(mapStateToProps, {updateTodoAC, deleteTodoAC, cancelUpdateAC})(TodoDemoPage)

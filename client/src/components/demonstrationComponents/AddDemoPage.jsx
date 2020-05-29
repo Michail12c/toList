@@ -14,7 +14,7 @@ const AddDemoPage = ({setTodoDemo}) => {
     M.AutoInit();
   })
  
- const [form, setForm] = useState({todo: '', comment: '', typeTodo: '', priority: '', date: Date.now()})
+ const [form, setForm] = useState({todo: '', comment: '', typeTodo: 'task', priority: '1', date: Date.now()})
  const [disabled, setDisabled] = useState(false)
 
 
@@ -30,7 +30,7 @@ let setTodo = (data) => {
       e.preventDefault()
       setDisabled(true) 
       await setTodo(form)
-      setForm({ todo: '', comment: '', typeTodo: '', priority: '1' })
+      setForm({ todo: '', comment: '', typeTodo: 'task', priority: '1' })
       window.M.toast({html: 'Завдання додано'})
       setDisabled(false) 
 }
@@ -44,12 +44,15 @@ let setTodo = (data) => {
         <form className="col s12 heightTodoForm">
           <div className="row">
             <div className="input-field col s10 offset-s1">
-              <textarea id="textarea1" 
-              name = "todo" 
-              value = {form.todo}
-              className="materialize-textarea"
-               onChange={changeHandler}></textarea>
-              <label forhtml="textarea1">Назва</label>
+              <input id="todo" 
+                name = "todo" 
+                type="text"
+                value = {form.todo}
+                className="validate"
+                required
+                onChange={changeHandler}/>
+              <label forhtml="todo">Назва</label>
+              <span className="helper-text" data-error="Це поле має бути заповнено"></span>
             </div>
           </div>
         </form>
@@ -58,25 +61,25 @@ let setTodo = (data) => {
         <form className="col s12 heightTodoForm">
           <div className="row">
             <div className="input-field col s10 offset-s1">
-              <textarea id="textarea1" 
+              <input id="comment" 
+              type ="text"
               name = "comment" 
               value = {form.comment}
-              className="materialize-textarea"
-               onChange={changeHandler}></textarea>
+               onChange={changeHandler}/>
               <label forhtml="textarea1">Коментар</label>
             </div>
           </div>
         </form>
       </div>
        <div className="row">
-        <div className="input-field col s10 offset-s1">
-          <select className="icons" name="typeTodo" value = {form.typeTodo} onChange={changeHandler} >
-            <option value="" disabled selected>Виберіть тип завдання</option>
-            <option value="task" name = "typeTodo" data-icon= {task} className="left">Завдання</option>
+        <div className="input-field col s10 offset-s1 selectSection">
+          <select className="icons" type="radio" name="typeTodo" value = {form.typeTodo} onChange={changeHandler} >
+            <option value="" disabled>Виберіть тип завдання</option>
+            <option value="task" selected  name = "typeTodo" data-icon= {task} className="left">Завдання</option>
             <option value="project" name = "typeTodo" data-icon={project} className="left">Проекти</option>
             <option value="idea"  name = "typeTodo" data-icon={idea} className="left">Ідеї</option>
           </select>
-          <label>Тип завдання</label>
+          <label> Тип завдання</label>
         </div>
         </div>  
         <div className="radioBtn-section row"> 
@@ -86,7 +89,7 @@ let setTodo = (data) => {
         <form action="#" className = "col s10 offset-s1">
             <p>
               <label>
-                <input  value = "1" name="priority" type="radio" onChange = {changeHandler} />
+                <input  value = "1" name="priority" checked type="radio" onChange = {changeHandler} />
                 <span>Високий</span>
               </label>
             </p>

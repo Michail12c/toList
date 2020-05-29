@@ -33,7 +33,7 @@ function App({isAuth, setAuth}) {
  
   
   return (
-    <div className="App">
+    <div className="App  #e3f2fd blue lighten-5">
       <Header logout = {logout}/> 
        <div className ='container'>
         <div className = 'test'>    

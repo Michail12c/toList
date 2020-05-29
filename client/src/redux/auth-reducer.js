@@ -27,6 +27,8 @@ export const loginThunk = (form) => async (dispatch) => {
     let isAuth = !!data.token
     sessionStorage.setItem('auth', JSON.stringify({userId: data.userId, token: data.token, isAuth: isAuth,}))
     dispatch(setAuth( data.userId, data.token, isAuth))
+    let response; 
+    return response = isAuth ? 'Ви успішно логінізувались' : 'Ваш пароль чи логін не вірні' 
   }catch(e){
     console.log(e) 
   }
@@ -34,7 +36,8 @@ export const loginThunk = (form) => async (dispatch) => {
 
 export const registerThunk = (form) => async (dispatch) => {
   try{
-    await api.sendPost('/api/auth/register', form)
+   let response = await api.sendPost('/api/auth/register', form)
+   return response
   }catch(e){
     console.log(e)
   }

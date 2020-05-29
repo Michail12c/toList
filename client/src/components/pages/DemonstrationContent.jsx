@@ -16,7 +16,7 @@ const DemonstrationContent = ({ setStatusContent }) => {
         <div className="row">
           <div className="col s12">
             <ul className="tabs">
-              <li className="tab col s6"><a class="activeAuth active" href="#addTodo">Додати справу</a></li>
+              <li className="tab col s6"><a className="activeAuth active" href="#addTodo">Додати справу</a></li>
               <li className="tab col s6"><a className="activeAuth"  href="#showTodo">Показати справи</a></li>
             </ul>
           </div>

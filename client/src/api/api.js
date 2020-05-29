@@ -17,7 +17,7 @@ export const api = {
      .then(res => res.json())
      .then(response => response )
      return data
-  },
+    },
   updateTodo(url, body){
     let data = fetch(url, {
        method: 'put',

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux';
 import {Redirect} from 'react-router-dom'
-import { api } from '../../api/api'
 import {loginThunk, registerThunk} from '../../redux/auth-reducer'
 import M from 'materialize-css'
 
@@ -18,16 +17,18 @@ const changeHandler = event => {
 const sendData = async (e) => {
   e.preventDefault()
   setDisabled(true)
-  await registerThunk(form)
+  let response =  await registerThunk(form)
   setForm({form, text: '', password: ''})
+  window.M.toast({html: response.message})
   setDisabled(false)
 }
 
 const sendLogin = async (e) => {
     e.preventDefault()
     setDisabled(true)
-    await loginThunk(form)
+    let response = await loginThunk(form)
     setForm({form, text: '', password: ''})
+    window.M.toast({html: response})
     setDisabled(false)
 }
  
@@ -61,6 +62,7 @@ const sendLogin = async (e) => {
                           onChange = {changeHandler}
                           required/>
                           <label htmlFor="text">Логін</label>
+                          <span class="helper-text" data-error="Це поле має бути заповнено"></span>
                         </div>
                       </div>
                       <div className="row">
@@ -73,17 +75,7 @@ const sendLogin = async (e) => {
                            onChange = {changeHandler}
                            required/>
                           <label htmlFor="password">Пароль</label>
-                        </div>
-                      </div>
-                      <div className="row">
-                        <div className="input-field col s8 offset-s2">
-                          <input id="password"
-                           type="password" 
-                           className="validate" 
-                           name = "password" 
-                           onChange = {changeHandler}
-                           required/>
-                          <label htmlFor="password">Пароль</label>
+                          <span class="helper-text" data-error="Це поле має бути заповнено"></span>
                         </div>
                       </div>
                       <span className = "passwordForget"><a href="">Забули пароль?</a></span>
@@ -108,8 +100,9 @@ const sendLogin = async (e) => {
                           name="text"
                           value = {form.text}
                           onChange= {changeHandler}
-                           requier/>
+                          required />
                           <label htmlFor="text">Login</label>
+                          <span class="helper-text" data-error="Це поле має бути заповнено"></span>
                         </div>
                       </div>
                       <div className="row">
@@ -122,6 +115,7 @@ const sendLogin = async (e) => {
                            onChange = {changeHandler}
                            required/>
                           <label htmlFor="password">Password</label>
+                          <span class="helper-text" data-error="Це поле має бути заповнено"></span>
                         </div>
                       </div>
                        { !disabled

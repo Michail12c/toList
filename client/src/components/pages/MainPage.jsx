@@ -1,7 +1,10 @@
 import React from 'react'
 import { useState } from 'react'
+import { NavLink } from 'react-router-dom'
 import DemonstrationContent from './DemonstrationContent'
 import image from '../../image/imagenote.jpg'
+import monkey from '../../image/monkey.jpg'
+import Badges from './materialize/badges'
 
 const MainPage = () => {
   const [statusContent, setStatusContent] = useState(false)
@@ -16,31 +19,35 @@ const MainPage = () => {
 
 const MainContent = ({setStatusContent}) => {
    return(
-    <div className="title-main">
-    <h1>
-      MainPage
-    </h1>
-    <h5>test text</h5>
-     <p> <img src={image} alt="image"/>
-       Структура додатку створена на основі концепцій Максима Дорофеєва. Розписати різницю між завданнями, проектами та ідеями.
+    <div className='main-content'>
+    <h4 className = "top-title">
+      Гуманізація тайм - менеджменту
+    </h4>
+     <p className="title-main"><img src={image} alt="image"/>
+       <p className="title-sentence">Вчинок породжує звичку, звичка - характер, а характер - долю. <br/> 
+       <span>Давнє прислів'я.</span></p>
+       Одна з причин неефективності численних моделей тайм-менеджменту полягає в механічному підході до формулювання завдань, коли різні по пріоритету, типу та внутрішній складності задачі складаються в один блок, в результаті чого користувач опиняється перед непідйомною глибою незроблених справ, що дедалі більше пригнічує його психіку та формує поведінку уникання. Людина розчаровується у свой здатності втілити задумане у життя, все більше прокрастинує та втрачає мотивацію.     
      </p>
-     <p>
-     Omnis ipsa assumenda ad quae incidunt minus ab consectetur molestiae eos magnam, tempora velit necessitatibus vero repellendus. Repellendus tempora eaque iusto dignissimos.
+     <h5>Лагідний підхід</h5>
+      <p>
+        Щоб вийти із зачарованого кола усе більшого числа взятих на себе зобовязань і все меншого бажання їх виконувати необхідно сконцентруватись на психології. Оскільки ефективною може бути тільки та система, яка в своїх базових механізмах не вступає в конфлікт зі схильностями та паттернами поведінки людини. Цей додаток створено на основі концепцій Максима Дорофеєва, який в свою чергу виходив із моделі Тіма Урбана. Дізнатися детальніше можна тут - <a href="https://www.youtube.com/watch?v=1Zr_ydPsmas&t=89s">Завдання, проекти, ідеї. Максим Дорофеєв</a> та <a href="https://www.youtube.com/watch?v=arj7oStGLkU">Модель Тіма Урбана</a>.      
+      </p>
+      <p className='middle-title'> <img src= {monkey} alt="image"/>
+      Дана модель в алегоричній формі описує людську психіку, як боротьбу між "мавпочкою митьєвого задоволення" та "раціональним типом", спочатку мавпочка перемагає, людина перебуває в напівсвідомому стані, розконцентрована, неохоча до глибоких і послідовних роздумів. Потім приходить "панічний монстр", мавпочку відтісняє раціональний тип, людина оговтується і приступає до аналізу свого становища. Знайшовши вихід вона швидко заспокоюється, нею знову оволодіває "мавпочка митьєвого задоволення" і все починається заново. 
      </p>
-     <h5>name new case</h5>
-     <p>
-       Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolor quam veritatis harum? Animi molestias odio minus mollitia ipsum culpa dolores. Autem mollitia quas fugit praesentium perspiciatis consectetur, beatae odio quia?Lorem ipsum dolor sit, amet consectetur adipisicing elit. 
-     </p>
-        <p>
-        Consectetur nulla doloribus exercitationem? Quaerat cupiditate provident quam quas laudantium ex blanditiis voluptates eum. Error laborum provident qui eveniet quidem magnam officia.
-        </p>
+     <p>Таким чином, формуючи список завдань, потрібно враховувати в якому "режимі" психіки їх найкраще виконувати. Є задачі які вирішуються автоматично, майже бездумно, а є такі, що вимагають глибокого досліждення чи пошуку креативних рішень. </p>
+     <h5>Структура задач</h5>
+     <p className='section-barge'>
+      Ми пропонуємо розділити задачі на три типи в залежності від того наскільки ясний алгоритм для їх вирішення та яких ресурсів це від нас вимагає. Такими типами є <span>завдання</span>,<span> проекти</span> та <span>їдеї</span>. Завдяки цьому підходу ми можемо застосувати тонші налаштування для організації списка завдань, що враховуватимуть особливості психології та зроблять роботу із ними значно ефективнішими і комфортнішими. 
+    </p>
+      <Badges/>
      <div className = 'demonstration'> 
        <div className=' child-text'>
-         <h5>demonstartion</h5>
-          <p>Вам потрібно зареєструватись для користування додатком, але ви можете ознайомитися з його можливостями у нашій презентації</p>
+         <h5>Знайомство</h5>
+          <p>Для повноцінного користування додатком вам потрібно <NavLink to='/auth'>зареєструватись</NavLink>, але ви можете ознайомитися з його функціональністю і без реєстрації, у тестовому режимі.</p>
        </div>
        <div className='child-demo'>
-         <button onClick= {() => setStatusContent(true)}  className='btn'>Почати</button>
+         <button onClick= {() => setStatusContent(true)}  className='btn'>Тестувати</button>
        </div>
      </div>
    </div>

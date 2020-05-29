@@ -8,7 +8,7 @@ const Header = ({isAuth, logout}) => {
     <div className = 'header'> 
       <nav>
         <div className="nav-wrapper #558b2f light-green darken-3">
-          <a href="#" className="brand-logo">Logo</a>
+          <a href="#" className="brand-logo style-logo">Записник</a>
           <ul id="nav-mobile" className="right hide-on-med-and-down">
             <li><NavLink exact activeClassName="headerActive" to='/'>Головна</NavLink></li>
             {isAuth ? <li><NavLink exact activeClassName="headerActive" to='/add'>Додати</NavLink></li> : ''}
