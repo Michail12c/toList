@@ -38,7 +38,7 @@ let setTodo = (data) => {
 
   return(
     <div className = "addTodo">
-    <h3>Add todo</h3> 
+    <h3>Додати задачу</h3> 
      <form onSubmit = {handleSubmit}>
        <div className="row">
         <form className="col s12 heightTodoForm">
@@ -109,8 +109,8 @@ let setTodo = (data) => {
         </div>
         <div className = 'addTodoBtn'>
           {!disabled
-              ? <button type='submit'  className='btn'>Додати</button>
-              : <button type='submit' disabled className='btn'>Додати</button>
+              ? <button type='submit'  className='btn add-btn'>Додати</button>
+              : <button type='submit' disabled className='btn add-btn'>Додати</button>
            }
         </div>   
        </form> 

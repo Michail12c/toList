@@ -53,7 +53,7 @@ const sendLogin = async (e) => {
                 <div className="row">
                     <form className="col s12">
                       <div className="row">
-                        <div className="input-field col s8 offset-s2">
+                        <div className="input-field col s12 l8 offset-l2">
                           <input id="text" 
                           type="text" 
                           className="validate" 
@@ -66,7 +66,7 @@ const sendLogin = async (e) => {
                         </div>
                       </div>
                       <div className="row">
-                        <div className="input-field col s8 offset-s2">
+                        <div className="input-field col s12 l8 offset-l2">
                           <input id="password"
                            type="password"  
                            className="validate" 
@@ -93,7 +93,7 @@ const sendLogin = async (e) => {
                    <div className="row">
                     <form className="col s12">
                       <div className="row">
-                        <div className="input-field col s8 offset-s2">
+                        <div className="input-field col s12 l8 offset-l2">
                           <input id="text" 
                           type="text" 
                           className="validate" 
@@ -106,7 +106,7 @@ const sendLogin = async (e) => {
                         </div>
                       </div>
                       <div className="row">
-                        <div className="input-field col s8 offset-s2">
+                        <div className="input-field col s12 l8 offset-l2">
                           <input id="password"
                            type="password" 
                            name="password" 
@@ -119,8 +119,8 @@ const sendLogin = async (e) => {
                         </div>
                       </div>
                        { !disabled
-                           ? <button  onClick= {sendLogin} className="waves-effect btn send-auth">Відправити</button>
-                           : <button disabled  className="waves-effect btn send-auth">Відправити</button>                    
+                           ? <button  onClick= {sendLogin} className="waves-effect btn send-login">Відправити</button>
+                           : <button disabled  className="waves-effect btn send-login">Відправити</button>                    
                        }
                     </form>
                   </div>

@@ -1,11 +1,16 @@
 import React, { useEffect } from 'react'
 import { useState } from 'react'
 import { connect } from 'react-redux'
+import M from 'materialize-css'
 import { constructorContent, countDone } from '../../common/helper';
 import {  deleteTodoThunk, updateTodoThunk, getTodoThunk } from '../../redux/todo-reducer';
 
 
 const TodoPage = ({todo, userId, deleteTodoThunk, updateTodoThunk, getTodoThunk}) => {
+
+  useEffect(() => {
+    M.AutoInit();
+   })
   
   if(todo.length === 0 ){
     getTodoThunk(userId)
@@ -34,15 +39,15 @@ const TodoPage = ({todo, userId, deleteTodoThunk, updateTodoThunk, getTodoThunk}
      todo.map(elem => constructorContent(elem, taskArr, projectArr, ideaArr))
      if(taskArr.length !== 0){
        doneTask = countDone(taskArr)
-       contentTask = taskArr.map((elem, index) => <Cards date={elem.date} deleteTodo = {deleteTodo} changeDate={elem.changeDate} todo = {elem.todo} comment = {elem.comment} updateTodo = {updateTodo} priority = {elem.priority}/>) 
+       contentTask = taskArr.map((elem, index) => <Cards roleCard = {'task'} date={elem.date} deleteTodo = {deleteTodo} changeDate={elem.changeDate} todo = {elem.todo} comment = {elem.comment} updateTodo = {updateTodo} priority = {elem.priority}/>) 
      }
      if(projectArr.length !== 0){
       doneProject = countDone(projectArr)
-      contentProject = projectArr.map((elem, index) => <Cards date={elem.date}  deleteTodo = {deleteTodo} changeDate={elem.changeDate}  todo = {elem.todo} comment = {elem.comment} updateTodo = {updateTodo} priority = {elem.priority}/>) 
+      contentProject = projectArr.map((elem, index) => <Cards date={elem.date} roleCard = {'project'}   deleteTodo = {deleteTodo} changeDate={elem.changeDate}  todo = {elem.todo} comment = {elem.comment} updateTodo = {updateTodo} priority = {elem.priority}/>) 
      }
      if(ideaArr.length !== 0){
        doneIdea = countDone(ideaArr)
-       contentIdea = ideaArr.map((elem, index) => <Cards date={elem.date}  deleteTodo = {deleteTodo} changeDate={elem.changeDate}  todo = {elem.todo} comment = {elem.comment} updateTodo = {updateTodo} priority = {elem.priority}/>) 
+       contentIdea = ideaArr.map((elem, index) => <Cards date={elem.date} roleCard = {'idea'} deleteTodo = {deleteTodo} changeDate={elem.changeDate}  todo = {elem.todo} comment = {elem.comment} updateTodo = {updateTodo} priority = {elem.priority}/>) 
      }
   }
 
@@ -53,7 +58,7 @@ const TodoPage = ({todo, userId, deleteTodoThunk, updateTodoThunk, getTodoThunk}
              {statusContent == 1 && `Всього проектів ${projectArr.length}.` + ` Виконано ${doneProject}.` }
              {statusContent == 2 && `Всього ідей ${ideaArr.length}.` + ` Виконано ${doneIdea}.` }
         </div>
-        <h1> Todo Page</h1> 
+        <h3>Ваші задачі</h3> 
       
         <div className = 'todoPage row'>
            <div className = 'menuTodo col s4 m2'>
@@ -73,11 +78,31 @@ const TodoPage = ({todo, userId, deleteTodoThunk, updateTodoThunk, getTodoThunk}
              {statusContent == 2 ? contentIdea : '' }
            </div>
         </div>
+        
+        <div className="mobile-todo row">
+          <div className="col s12">
+            <ul className="tabs">
+              <li className="tab col s3"><a className="activeAuth active" href="#test1">Завдання</a></li>
+              <li className="tab col s3"><a className="activeAuth"   href="#test2">Проекти</a></li>
+              <li className="tab col s3"><a className="activeAuth"  href="#test3">Ідеї</a></li>
+            </ul>
+            </div>
+            <div id="test1" className="col s12 contentTodo">
+              {contentTask}
+            </div>
+            <div id="test2" className="col s12 contentTodo">
+              {contentProject}
+            </div>
+            <div id="test3" className="col s12 contentTodo">
+              {contentIdea}
+            </div>
+         </div>
+
      </div>
    )
 }
 
-const Cards = ({todo, comment, priority, deleteTodo, updateTodo, date, changeDate}) => {
+const Cards = ({todo, comment, priority, deleteTodo, updateTodo, date, changeDate, roleCard}) => {
   
   let formatDate; 
 
@@ -102,13 +127,19 @@ const Cards = ({todo, comment, priority, deleteTodo, updateTodo, date, changeDat
   let styleCard; 
   switch(priority){
     case '1':
-      styleCard = "card #455a64 blue-grey darken-2"
+      if(roleCard === 'task') styleCard = "card #0d47a1 blue darken-4"
+      if(roleCard === 'project') styleCard = "card #004d40 teal darken-4"
+      if(roleCard === 'idea') styleCard = "card #827717 lime darken-4"
       break
     case '2':
-     styleCard = "card #78909c #607d8b blue-grey" 
+      if(roleCard === 'task') styleCard = "card #1e88e5 blue darken-1" 
+      if(roleCard === 'project') styleCard = "card #004d40 teal"
+      if(roleCard === 'idea') styleCard = "card #827717 lime"
       break
     case '3':
-      styleCard = "card #90a4ae blue-grey lighten-2"
+      if(roleCard === 'task') styleCard = "card #90a4ae #42a5f5 blue lighten-1"
+      if(roleCard === 'project') styleCard = "card #004d40 teal lighten-2"
+      if(roleCard === 'idea') styleCard = "card #827717 lime lighten-2" 
      break 
     case '4': 
       styleCard = "card #4caf50 green"

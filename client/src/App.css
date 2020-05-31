@@ -36,7 +36,9 @@ a.activeAuth{
 .badge-task-img{
   width: 10rem !important;
   height: auto;
-  margin-left: 10px;
+  margin-left: 1rem;
+  margin-top: 1rem;
+  float: right;
 }
 .passwordForget{
   margin-right: 16rem;
@@ -98,8 +100,9 @@ a.activeAuth{
 .section-todoPage{
  position: relative;
 }
-.section-todoPage h1{
-  margin-bottom: 4rem;
+.section-todoPage h3{
+  margin-top: 6rem;
+  margin-bottom: 5rem;
   text-align: center;
 }
 .statistic{
@@ -163,6 +166,30 @@ a.activeAuth{
 .section-task-badge{
   display: flex;
 }
+.return-btn{
+  display: block;
+  text-align: center;
+  margin: 0 auto;
+}
+.footer{
+  margin-top: 4rem;
+}
+.mobile-menu{
+  display: none;
+  color: white;
+  position: absolute;
+  z-index: 10;
+  right: 2rem;
+  top: 1rem;
+  font-size: large;
+}
+.dropdown-trigger.top-menu{
+  color: white !important;
+}
+.mobile-todo{
+  display: none;
+}
+
 
 
 
@@ -170,17 +197,97 @@ a.activeAuth{
 
 
 @media (max-width: 1199.98px) { }
-@media (max-width: 991.98px) { }
+@media (max-width: 991.98px) { 
+  .style-logo{
+    display: none !important;
+  }
+}
 @media (max-width: 767.98px) {
   .title-main img{
     width: 300px;
   }
+  .badge-task-img{
+    margin-left: 5px;
+  }
+  .todoPage{
+    display: none;
+  }
+  .mobile-todo{
+    display: block;
+  }
+  
+
+
  }
+
  @media (max-width: 575.98px) {
   .title-main img{
-    width: 200px;
+    float: none;
+    width: 100%;
+    margin-right: 5px;
+    margin-left: 5px;
   }
   .addTodo h1{
     text-align: center;
   }
+  .middle-title img{
+    float: none;
+    width: 100%;
+    margin-right: 5px;
+    margin-left: 5px;
+  }
+  .addTodoBtn{
+   justify-content: center;
+   margin: 0;
+  }
+  .add-btn{
+    display: block;
+    text-align: center;
+    margin: 0 auto ;
+    width: 100%;
+  }
+  .demonstration{
+    flex-direction: column;
+    flex-wrap: nowrap;
+   }
+   .child-demo{
+     margin: 0;
+   }
+   .child-demo button{
+    display: block;
+    text-align: center;
+    margin: 0 auto ;
+    width: 100%;
+   }
+   .child-text{
+     width: 100%;
+     margin-right: 0;
+   }
+   .statistic{
+    top: -4rem;
+  }
+  .passwordForget{
+    margin: 0;
+    float: left;
+  }
+  .send-auth{
+   float: right;
+  }
+  .style-logo{
+    display: block !important;
+     left: 6rem !important; 
+  }
+  .style-menu{
+    display: none;
+  }
+  .mobile-menu{
+    display: block;
+  }
+  .send-login{
+    display: block;
+    text-align: center;
+    margin: 0 auto ;
+    width: 100%;
+  }
+  
 }

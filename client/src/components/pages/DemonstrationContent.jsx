@@ -27,7 +27,7 @@ const DemonstrationContent = ({ setStatusContent }) => {
                <TodoDemoPages/>
               </div>
           </div>  
-         <button onClick = {() => setStatusContent(false)} className='btn #00796b teal darken-2'>Повернутись</button>
+         <button onClick = {() => setStatusContent(false)} className='btn #00796b teal darken-2 return-btn'>Повернутись</button>
     </div>
   )
 }
