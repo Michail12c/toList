@@ -1,6 +1,8 @@
 const express = require('express')
 const app = express()
 const mongoose = require('mongoose')
+const helmet = require('helmet')
+const compression = require('compression')
 const session = require('express-session')
 const User = require('./models/User')
 const authRouter = require('./routes/auth')
@@ -13,6 +15,9 @@ const path = require('path')
 
 
 app.use(express.json({extended: true}))
+app.use(helmet())
+app.use(compression())
+
 
 app.use('/api/auth', authRouter)
 app.use('/api/todo', todoRouter)
