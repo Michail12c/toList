@@ -8,8 +8,9 @@ const User = require('./models/User')
 const authRouter = require('./routes/auth')
 const todoRouter = require('./routes/addTodo')
 
-const PORT = process.env.BASE_URL || 5000
 const config = require('./config')
+const PORT = config.BASE_URL || 5000
+
 const path = require('path')
 
 
@@ -33,7 +34,7 @@ async function start(){
     useFindAndModify: false
   })
   
-  app.listen(BASE_URL, () => {
+  app.listen(PORT, () => {
     console.log(`App has been started on port ${PORT}...`)
   })
   }catch(e){
