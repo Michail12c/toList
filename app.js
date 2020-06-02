@@ -10,9 +10,8 @@ const todoRouter = require('./routes/addTodo')
 const path = require('path')
 
 const config = require('./config')
-const PORT = config.BASE_URL || 5000
+const PORT = process.env.PORT || 5000
 
-const path = require('path')
 
 
 
@@ -24,7 +23,7 @@ app.use(compression())
 app.use('/api/auth', authRouter)
 app.use('/api/todo', todoRouter)
 
-if(express.env.NODE_ENV === 'production'){
+if(config.NODE_ENV === 'production'){
   app.use('/', express.static(path.join(__dirname, 'client', 'build')))
 
   app.get('*', (req, res) => {
