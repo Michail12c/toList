@@ -7,6 +7,7 @@ const session = require('express-session')
 const User = require('./models/User')
 const authRouter = require('./routes/auth')
 const todoRouter = require('./routes/addTodo')
+const path = require('path')
 
 const config = require('./config')
 const PORT = config.BASE_URL || 5000
@@ -22,6 +23,14 @@ app.use(compression())
 
 app.use('/api/auth', authRouter)
 app.use('/api/todo', todoRouter)
+
+if(express.env.NODE_ENV === 'production'){
+  app.use('/', express.static(path.join(__dirname, 'client', 'build')))
+
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'))
+  })
+}
 
 app.use(express.urlencoded({extended:true}))
 
