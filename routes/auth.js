@@ -70,7 +70,7 @@ async(req, res) => {
     }
     const token = jwt.sign(
       {userId: user.id},
-       config.jwtSecret, 
+       config.SESSION_SECRET, 
       {expiresIn: '1h'}
     )
     

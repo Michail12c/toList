@@ -10,7 +10,7 @@ const todoRouter = require('./routes/addTodo')
 const path = require('path')
 
 const config = require('./config')
-const PORT = process.env.PORT || 5000
+const PORT = config.BASE_URL|| 5000
 
 
 
@@ -34,8 +34,9 @@ if(config.NODE_ENV === 'production'){
 app.use(express.urlencoded({extended:true}))
 
 async function start(){
+
   try{
-    await mongoose.connect(config.url, {
+    await mongoose.connect(config.MONGODB_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex: true,

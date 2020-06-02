@@ -1,6 +1,5 @@
 module.exports = {
-  url: process.env.url,
-  jwtSecret: process.env.jwtSecret,
-  BASE_URL: process.env.BASE_URL,
-  NODE_ENV: 'production'
+  MONGODB_URI: process.env.MONGODB_URI,
+  SESSION_SECRET: process.env.jwtSecret,
+  BASE_URL: 'https://agile-dawn-95357.herokuapp.com/'
 }
