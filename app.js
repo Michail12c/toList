@@ -10,7 +10,7 @@ const todoRouter = require('./routes/addTodo')
 const path = require('path')
 
 const config = require('./config')
-const PORT = config.BASE_URL|| 5000
+const PORT = process.env.PORT|| 5000
 
 
 
