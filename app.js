@@ -14,13 +14,21 @@ const PORT = process.env.PORT|| 5000
 app.use(express.urlencoded({extended:true}))
 
 
-if(config.NODE_ENV === 'production'){
+/* if(config.NODE_ENV === 'production'){
   app.use('/', express.static(path.join(__dirname, 'client', 'build')))
 
   app.get('*', (req, res) => {
     res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'))
   })
-}
+} */
+
+app.use('/', express.static(path.join(__dirname, 'client', 'build')))
+
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'))
+})
+
+
 
 
 app.use(express.json({extended: true}))
