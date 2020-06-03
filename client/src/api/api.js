@@ -9,8 +9,8 @@ export const api = {
    let data = fetch(url, {
       method: 'post',
       headers: {
-        'Content-Type': 'application/json'
-        /*  'Accept':  'application/json' */
+        'Content-Type': 'application/json',
+         'Accept':  'application/json'
       },
       body: JSON.stringify(body)
     })
@@ -22,8 +22,8 @@ export const api = {
     let data = fetch(url, {
        method: 'put',
        headers: {
-         'Content-Type': 'application/json'
-         /*  'Accept':  'application/json' */
+         'Content-Type': 'application/json',
+          'Accept':  'application/json'
        },
        body: JSON.stringify(body)
      })
