@@ -68,13 +68,14 @@ async(req, res) => {
     if(!isMatch){
       return res.status(400).json({message: 'Невірні дані'})
     }
-    const token = jwt.sign(
+/*     const token = jwt.sign(
       {userId: user.id},
        config.SESSION_SECRET, 
       {expiresIn: '1h'}
-    )
+    ) */
     
-     res.status(201).json({token, userId: user.id})
+   /*   res.status(201).json({token, userId: user.id}) */
+     res.status(201).json({ token: true, userId: user.id})
   }catch(e){
     res.status(500).json({message:"Error..."})
   }
