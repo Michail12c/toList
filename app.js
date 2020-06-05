@@ -22,13 +22,6 @@ app.use(express.urlencoded({extended:true}))
   })
 } */
 
-app.use('/', express.static(path.join(__dirname, 'client', 'build')))
-
-app.get('*', (req, res) => {
-  res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'))
-})
-
-
 
 
 app.use(express.json({extended: true}))
@@ -39,6 +32,11 @@ app.use(compression())
 app.use('/api/auth', authRouter)
 app.use('/api/todo', todoRouter)
 
+app.use('/', express.static(path.join(__dirname, 'client', 'build')))
+
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'))
+})
 
 
 
