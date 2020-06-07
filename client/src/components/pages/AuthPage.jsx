@@ -16,6 +16,9 @@ const changeHandler = event => {
 
 const sendData = async (e) => {
   e.preventDefault()
+  if(!form.text || !form.password){
+    return window.M.toast({html: "Заповніть поля форми"})
+  }
   setDisabled(true)
   let response =  await registerThunk(form)
   setForm({form, text: '', password: ''})
@@ -25,6 +28,9 @@ const sendData = async (e) => {
 
 const sendLogin = async (e) => {
     e.preventDefault()
+    if(!form.text || !form.password){
+      return window.M.toast({html: "Заповніть поля форми"})
+    }
     setDisabled(true)
     let response = await loginThunk(form)
     setForm({form, text: '', password: ''})
@@ -35,6 +41,8 @@ const sendLogin = async (e) => {
  useEffect(() => {
   M.AutoInit();
  })
+
+
 
  if(isAuth){
   return <Redirect to='/'/>

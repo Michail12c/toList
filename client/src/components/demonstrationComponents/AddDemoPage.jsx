@@ -17,22 +17,25 @@ const AddDemoPage = ({setTodoDemo}) => {
  const [form, setForm] = useState({todo: '', comment: '', typeTodo: 'task', priority: '1', date: Date.now()})
  const [disabled, setDisabled] = useState(false)
 
-
  const changeHandler = event => {
   setForm({...form, [event.target.name]: event.target.value })
 } 
- 
+
 let setTodo = (data) => {
   setTimeout(setTodoDemo(data), 1000 )
 }
 
   const handleSubmit = async (e) => {
       e.preventDefault()
-      setDisabled(true) 
+      if(!form.todo) {
+        return  window.M.toast({html: 'Заповніть поле назва'})
+      }
+      setDisabled(true)
       await setTodo(form)
       setForm({ todo: '', comment: '', typeTodo: 'task', priority: '1' })
       window.M.toast({html: 'Завдання додано'})
-      setDisabled(false) 
+      setTimeout(() => setDisabled(false), 500)
+      
 }
 
 
@@ -108,7 +111,7 @@ let setTodo = (data) => {
           </form>
         </div>
         <div className = 'addTodoBtn'>
-          {!disabled
+          { !disabled
               ? <button type='submit'  className='btn add-btn'>Додати</button>
               : <button type='submit' disabled className='btn add-btn'>Додати</button>
            }

@@ -2,6 +2,7 @@ import { api } from "../api/api"
 
 const SET_TODO = 'SET-TODO'
 const DELETE_TODO = 'DELETE-TODO'
+const CLEAR_TODO = 'CLEAR-TODO'
 
 
 let initialState = {
@@ -20,7 +21,9 @@ const todoReducer = (state = initialState, action) => {
       return{
         ...state,
         todo: state.todo.filter(item => item.todo !== action.todo)
-      }   
+      }  
+    case CLEAR_TODO:
+      return {...state, todo: [] }   
     default:
       return state
   }
@@ -28,6 +31,7 @@ const todoReducer = (state = initialState, action) => {
 
 export const setTodo = arr => ({type: SET_TODO, arr}) 
 export const deleteTodoAC = todo => ({type: DELETE_TODO, todo})
+export const clearTodo = () => ({type: CLEAR_TODO})
 
 export const getTodoThunk = (userId) => async(dispatch) => {
   try{

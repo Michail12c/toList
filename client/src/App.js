@@ -10,25 +10,27 @@ import TodoPage from './components/pages/TodoPage';
 import AddTodoPage from './components/pages/AddTodoPage';
 import { connect } from 'react-redux';
 import { setAuth } from './redux/auth-reducer';
+import { clearTodo } from './redux/todo-reducer';
 
 
 
-function App({isAuth, setAuth}) {
+function App({isAuth, setAuth, clearTodo}) {
   const [initialize, setInit] = useState(true)
   let auth = JSON.parse(sessionStorage.getItem('auth'))
-  
 
   useEffect(() => {
     if(auth){
       setAuth(auth.userId, auth.token, auth.isAuth) 
       return   
     }
-    setAuth(null, null, false)
-  }, [isAuth, initialize])
+  }, [initialize])
+
 
   const logout = () => {
     sessionStorage.removeItem('auth')
+    setAuth(null, null, false)
     setInit(false)
+    clearTodo()
   } 
  
   
@@ -55,4 +57,4 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps, {setAuth})(App);
+export default connect(mapStateToProps, {setAuth, clearTodo})(App);

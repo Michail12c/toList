@@ -9,8 +9,8 @@ const config = require('../config')
 
  router.post('/register',
 [
-  check('text', 'Невірний ввід данних').isLength({min: 3}),
-  check('password', 'Мінімальна довжина паролю 6 символів').isLength({min: 6})
+  check('text', 'Невірний ввід данних').isLength({min: 3, max: 40}),
+  check('password', 'Мінімальна довжина паролю 6 символів').isLength({min: 6, max: 40})
 ],
 async (req, res) => {
    try{

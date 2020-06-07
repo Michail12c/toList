@@ -11,7 +11,7 @@ const AddTodoPage = ({ userId, addTodoThunk}) => {
 
   useEffect(() => {
     M.AutoInit();
-  })
+  }) 
  
  const [form, setForm] = useState({todo: '', comment: '', typeTodo: 'task', priority: '1'})
  const [disabled, setDisabled] = useState(false)
@@ -22,11 +22,14 @@ const AddTodoPage = ({ userId, addTodoThunk}) => {
 
   const handleSubmit = async (e) => {
       e.preventDefault()
-      setDisabled(true) 
+      if(!form.todo){
+        return  window.M.toast({html: 'Заповніть поле назва'})
+      }
+      setDisabled(true)
       const response  = await addTodoThunk(userId, form)
       setForm({form, todo: '', comment: '', typeTodo: 'task', priority: '1' })
       window.M.toast({html: response.message})
-      setDisabled(false) 
+      setDisabled(false)
 }
 
 

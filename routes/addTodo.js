@@ -15,12 +15,17 @@ router.get('/:id', async (req, res) => {
 
 router.post('/add/:id',
 [
-  check('todo', 'Введіть завдання').isLength({min: 1})
+  check('todo', 'Введіть завдання').isLength({min: 1, max: 30}).withMessage('Довжина назви мінімально 1, максимально 30 символів'),
+  check('comment').isLength({ max: 30}).withMessage('Довжина коментара мінімально 1, максимально 30 символів')
 ],
 async (req, res) => {
   try{
+   const errors = validationResult(req)
+   if(!errors.isEmpty()){
+     return res.status(422).json({message: errors.array()[0].msg})
+   }
+
     const {todo, comment, typeTodo, priority} = req.body 
-    
     const candidateTodo = await Todo.findOne({todo})
     if(candidateTodo){
       return res.status(400).json({message: 'Таке завдання вже існує'})
