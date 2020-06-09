@@ -5,6 +5,7 @@ import DemonstrationContent from './DemonstrationContent'
 import image from '../../image/imagenote.jpg'
 import monkey from '../../image/monkey.jpg'
 import Badges from './materialize/badges'
+import Contacts from './Contacts'
 
 const MainPage = () => {
   const [statusContent, setStatusContent] = useState(false)
@@ -50,6 +51,9 @@ const MainContent = ({setStatusContent}) => {
          <button onClick= {() => setStatusContent(true)}  className='btn'>Тестувати</button>
        </div>
      </div>
+      <h5>Напишіть мені</h5>
+      <p className='contacts-message'>Якщо у вас з'явилися питання або ж пропозиції для співпраці ви можете надіслати мені листа. Я буду вдячний за зворотний звязок і з радістю поспілкуюся із вами у будь-який зручний для вас час. </p>
+      <Contacts/>
    </div>
   )
 }

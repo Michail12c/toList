@@ -1,8 +1,15 @@
 const {Router} = require('express')
 const router = Router()
+const nodemailer = require('nodemailer')
+const sendgrid = require('nodemailer-sendgrid-transport')
 const User = require('../models/User')
+const config = require('../config')
 const Todo = require('../models/Todo') 
 const {check, validationResult} = require('express-validator')
+
+const transporter = nodemailer.createTransport(sendgrid({
+  auth: { api_key: config.SENDGRID_API_KEY }
+}))
 
 router.get('/:id', async (req, res) => {
   try{
@@ -38,6 +45,39 @@ async (req, res) => {
     res.status(201).json({message: 'Завдання додано'})
   }catch(e){
     res.status(500).json({message: "Error..."})
+  }
+})
+
+
+router.post('/send', 
+ [
+   check('first_name').isLength({min: 1, max: 15}).withMessage('Мінімальна довжина імені 1 а максимальна 15 символів.'), 
+   check('last_name').isLength({min: 1, max: 15}).withMessage('Мінімальна довжина імені 1 а максимальна 15 символів.'),
+   check('email').isEmail().withMessage('Введіть email.'),
+   check('text').isLength({min: 1, max: 150}).withMessage('Мінімальна довжина повідомлення 1 а максимальна 150 символів.')
+
+ ] ,
+ async (req, res) => {
+  const {first_name, last_name, email, text} = req.body; 
+  try {
+    const errors = validationResult(req); 
+    if(!errors.isEmpty()){
+      return res.status(422).json({message: errors.array()[0].msg})
+    }
+    await transporter.sendMail({
+      to: config.EMAIL_TO,
+      from: config.EMAIL_FROM,
+      subject: 'Лист від користувача',
+      html: `
+       <h3>Повідомлення з сайту</h3>
+       <p>Від користувача: ${first_name + ' ' + last_name}</p>
+       <p>${text}</p>
+       <p> Електронна адреса відправника ${email}</p>
+      ` 
+    })
+    res.status(200).json({message: 200})
+  } catch (error) {
+    res.status(500).json({message: error})
   }
 })
 

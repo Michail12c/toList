@@ -125,7 +125,7 @@ const sendLogin = async (e) => {
                           <label htmlFor="password">Password</label>
                           <span class="helper-text" data-error="Це поле має бути заповнено"></span>
                         </div>
-                      </div>
+                      </div> 
                        { !disabled
                            ? <button  onClick= {sendLogin} className="waves-effect btn send-login">Відправити</button>
                            : <button disabled  className="waves-effect btn send-login">Відправити</button>                    

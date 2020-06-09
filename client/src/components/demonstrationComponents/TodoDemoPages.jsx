@@ -118,21 +118,16 @@ const Cards = ({todo, comment, priority, deleteTodo, updateTodo, date, changeDat
 
   let dateTodo = new Intl.DateTimeFormat('ua', options).format(date)
   let styleCard; 
+  
   switch(priority){
     case '1':
-      if(roleCard === 'task') styleCard = "card #0d47a1 blue darken-4"
-      if(roleCard === 'project') styleCard = "card #004d40 teal darken-4"
-      if(roleCard === 'idea') styleCard = "card #827717 lime darken-4"
+      styleCard = "card #0d47a1 blue darken-4"
       break
     case '2':
-      if(roleCard === 'task') styleCard = "card #1e88e5 blue darken-1" 
-      if(roleCard === 'project') styleCard = "card #004d40 teal"
-      if(roleCard === 'idea') styleCard = "card #827717 lime"
+      styleCard = "card #1e88e5 blue darken-1" 
       break
     case '3':
-      if(roleCard === 'task') styleCard = "card #90a4ae #42a5f5 blue lighten-1"
-      if(roleCard === 'project') styleCard = "card #004d40 teal lighten-2"
-      if(roleCard === 'idea') styleCard = "card #827717 lime lighten-2" 
+       styleCard = "card #90a4ae #42a5f5 blue lighten-1"
      break 
     case '4': 
       styleCard = "card #4caf50 green"

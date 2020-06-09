@@ -26,6 +26,7 @@ function App({isAuth, setAuth, clearTodo}) {
   }, [initialize])
 
 
+
   const logout = () => {
     sessionStorage.removeItem('auth')
     setAuth(null, null, false)

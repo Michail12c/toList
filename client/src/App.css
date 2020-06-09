@@ -189,6 +189,15 @@ a.activeAuth{
 .mobile-todo{
   display: none;
 }
+.send-form{
+  display: block;
+  text-align: center;
+  margin: 0 auto ;
+  width: 100%;
+}
+.contacts-message{
+  margin-bottom: 3rem;
+}
 
 
 
@@ -201,6 +210,7 @@ a.activeAuth{
   .style-logo{
     display: none !important;
   }
+
 }
 @media (max-width: 767.98px) {
   .title-main img{
@@ -215,9 +225,6 @@ a.activeAuth{
   .mobile-todo{
     display: block;
   }
-  
-
-
  }
 
  @media (max-width: 575.98px) {
